@@ -1,8 +1,10 @@
-package com.qkm.wiki;
+package com.qkm.wiki.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
+@ComponentScan("com.qkm")
 @SpringBootApplication
 public class WikiApplication {
 

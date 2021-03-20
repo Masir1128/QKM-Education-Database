@@ -49,7 +49,7 @@
         <a-input v-model:value="ebook.category2" />
       </a-form-item>
       <a-form-item label="描述">
-        <a-input v-model:value="ebook.bumen" type="textarea" />
+        <a-input v-model:value="ebook.description" type="textarea" />
       </a-form-item>
     </a-form>
   </a-modal>
@@ -82,25 +82,25 @@ export default defineComponent({
       },
       {
         title: '分类一',
-        key: 'bumen',
-        dataIndex: 'bumen'
+        key: 'category1_id',
+        dataIndex: 'category1_id'
       },
       {
         title: '分类二',
-        key: 'bumen',
-        dataIndex: 'bumen'
+        key: 'category2_id',
+        dataIndex: 'category2_id'
       },
       {
         title: '文档数',
-        dataIndex: 'description'
+        dataIndex: 'doc_count'
       },
       {
         title: '阅读数',
-        dataIndex: 'description'
+        dataIndex: 'view_count'
       },
       {
         title: '点赞数',
-        dataIndex: 'description'
+        dataIndex: 'vote_count'
       },
       {
         title: '操作',
@@ -114,10 +114,10 @@ export default defineComponent({
      */
     const handleQuery = (params: any) => {
       loading.value = true;
-      axios.get("http://localhost:8081/BookList",params).then((response) =>{
+      axios.get("http://localhost:8880/ebook/list",params).then((response) =>{
         loading.value = false;
         const data = response.data;
-        ebooks.value = data;
+        ebooks.value = data.content;
 
         pagination.value.current = params.page;
       });

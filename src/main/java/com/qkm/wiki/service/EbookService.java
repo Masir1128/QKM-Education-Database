@@ -9,6 +9,7 @@ import com.qkm.wiki.domain.EbookExample;
 import com.qkm.wiki.mapper.EbookMapper;
 import com.qkm.wiki.req.EbookReq;
 import com.qkm.wiki.resp.EbookResp;
+import com.qkm.wiki.resp.PageResp;
 import com.qkm.wiki.util.CopyUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -28,14 +29,14 @@ public class EbookService {
     @Resource
     private EbookMapper EbookMapper;
 
-    public List<EbookResp> list(EbookReq req){
+    public PageResp<EbookResp> list(EbookReq req){
 
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
         if(!ObjectUtils.isEmpty( req.getName())){
             criteria.andNameLike("%" + req.getName() + "%");
         }
-        PageHelper.startPage(1,3);
+        PageHelper.startPage(req.getPage(),req.getSize());
         List<Ebook> ebookList = EbookMapper.selectByExample(ebookExample);
         PageInfo<Ebook> pageInfo = new PageInfo<>(ebookList);
         pageInfo.getTotal();
@@ -53,7 +54,12 @@ public class EbookService {
 
         // 列表复制
         List<EbookResp> list = CopyUtil.copyList(ebookList, EbookResp.class);
-        return list;
+
+        PageResp<EbookResp> pageResp = new PageResp();
+        pageResp.setTotal(pageInfo.getTotal());
+        pageResp.setList(list);
+
+        return pageResp;
 
     }
 }

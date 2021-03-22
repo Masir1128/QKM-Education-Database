@@ -65,7 +65,7 @@ export default defineComponent({
     const ebooks = ref();
     const pagination = ref({
       current: 1,
-      pageSize: 3,
+      pageSize: 4,
       total: 0
     });
     const loading = ref(false);
@@ -114,12 +114,19 @@ export default defineComponent({
      */
     const handleQuery = (params: any) => {
       loading.value = true;
-      axios.get("http://localhost:8880/ebook/list",params).then((response) =>{
+      axios.get("http://localhost:8880/ebook/list", {
+        params:{
+          page:params.page,
+          size:params.size
+        }
+      }).then((response) =>{
         loading.value = false;
         const data = response.data;
-        ebooks.value = data.content;
+        ebooks.value = data.content.list;
 
         pagination.value.current = params.page;
+        pagination.value.total = data.content.total;
+        console.log(response);
       });
     };
 
@@ -153,7 +160,10 @@ export default defineComponent({
     };
 
     onMounted(() =>{
-      handleQuery({});
+      handleQuery({
+        page:1,
+        size:pagination.value.pageSize
+      });
     });
     return{
       ebooks,

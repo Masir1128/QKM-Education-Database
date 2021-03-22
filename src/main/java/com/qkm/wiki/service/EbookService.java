@@ -1,6 +1,8 @@
 package com.qkm.wiki.service;
 
 import com.fasterxml.jackson.databind.util.BeanUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.mysql.cj.util.StringUtils;
 import com.qkm.wiki.domain.Ebook;
 import com.qkm.wiki.domain.EbookExample;
@@ -27,14 +29,19 @@ public class EbookService {
     private EbookMapper EbookMapper;
 
     public List<EbookResp> list(EbookReq req){
+
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
         if(!ObjectUtils.isEmpty( req.getName())){
             criteria.andNameLike("%" + req.getName() + "%");
         }
-
+        PageHelper.startPage(1,3);
         List<Ebook> ebookList = EbookMapper.selectByExample(ebookExample);
+        PageInfo<Ebook> pageInfo = new PageInfo<>(ebookList);
+        pageInfo.getTotal();
+        pageInfo.getPages();
 
+        System.out.println(pageInfo.getTotal());
 //        List<EbookResp> respList = new ArrayList<>();
 //        for(Ebook ebook : ebookList){
 ////            EbookResp ebookResp = new EbookResp();

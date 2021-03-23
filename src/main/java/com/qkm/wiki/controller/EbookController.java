@@ -30,11 +30,27 @@ public class EbookController {
         return resp;
     }
 
-
+    /**
+     * Desp: 这是编辑和保存的接口
+     * @param req
+     * @return
+     */
     @PostMapping("/save")
     public CommonResp save(@RequestBody EbookSaveReq req){
         CommonResp resp = new CommonResp<>();
         EbookService.save(req);
+        return resp;
+    }
+
+    /**
+     * Desp: 这是电子书管理删除接口
+     * @param
+     * @return
+     */
+    @DeleteMapping("/delete/{id}")
+    public CommonResp delete(@PathVariable Long id){
+        CommonResp resp = new CommonResp<>();
+        EbookService.delete(id);
         return resp;
     }
 }

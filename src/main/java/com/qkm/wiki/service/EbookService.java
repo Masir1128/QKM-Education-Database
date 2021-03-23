@@ -10,6 +10,7 @@ import com.qkm.wiki.req.EbookSaveReq;
 import com.qkm.wiki.resp.EbookQueryResp;
 import com.qkm.wiki.resp.PageResp;
 import com.qkm.wiki.util.CopyUtil;
+import com.qkm.wiki.util.SnowFlake;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -25,6 +26,9 @@ public class EbookService {
 
     @Resource
     private EbookMapper EbookMapper;
+
+    @Resource
+    private SnowFlake snowFlake ;
 
     public PageResp<EbookQueryResp> list(EbookQueryReq req){
 
@@ -68,6 +72,8 @@ public class EbookService {
         Ebook ebook = CopyUtil.copy(req,Ebook.class);
         if(ObjectUtils.isEmpty(req.getId())){
             // 新增
+            ebook.setId(snowFlake.nextId());
+
             EbookMapper.insert(ebook);
         }else {
             // 更新

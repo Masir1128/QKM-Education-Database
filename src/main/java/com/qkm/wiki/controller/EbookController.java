@@ -9,6 +9,7 @@ import com.qkm.wiki.service.EbookService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 
 /**
  * @Masir Description:
@@ -23,7 +24,7 @@ public class EbookController {
     private EbookService EbookService;
 
     @GetMapping("/list")
-    public CommonResp list(EbookQueryReq req){
+    public CommonResp list(@Valid EbookQueryReq req){
         CommonResp<PageResp<EbookQueryResp>> resp = new CommonResp<>();
         PageResp<EbookQueryResp> list = EbookService.list(req);
         resp.setContent(list);

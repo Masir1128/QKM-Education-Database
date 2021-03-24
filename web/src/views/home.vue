@@ -6,7 +6,15 @@
           v-model:selectedKeys="selectedKeys2"
           v-model:openKeys="openKeys"
           :style="{ height: '100%', borderRight: 0 }"
+          @click="handleClick"
       >
+        <!--   -->
+        <a-menu-item key="welcome">
+            <MailOutlined />
+            <span>欢迎</span>
+        </a-menu-item>
+
+
         <a-sub-menu key="sub1">
           <template #title>
                 <span>
@@ -51,7 +59,7 @@
                   资料管理
                 </span>
           </template>
-          <a-menu-item key="13">机器人电子书</a-menu-item>
+          <a-menu-item key="Ebooks">机器人电子书</a-menu-item>
           <a-menu-item key="14">机器人短视频</a-menu-item>
           <a-menu-item key="15">FAQ</a-menu-item>
           <a-menu-item key="/admin/ebook">
@@ -59,16 +67,36 @@
           </a-menu-item>
         </a-sub-menu>
 
+        <a-sub-menu key="sub5" >
+          <template #title>
+        <span>
+          <MailOutlined />
+          <span>Navigation One</span>
+        </span>
+          </template>
+          <a-menu-item-group key="g1">
+            <template #title>
+              <QqOutlined />
+              <span>Item 1</span>
+            </template>
+            <a-menu-item key="1">Option 1</a-menu-item>
+            <a-menu-item key="2">Option 2</a-menu-item>
+          </a-menu-item-group>
+          <a-menu-item-group key="g2" title="Item 2">
+            <a-menu-item key="3">Option 3</a-menu-item>
+            <a-menu-item key="4">Option 4</a-menu-item>
+          </a-menu-item-group>
+        </a-sub-menu>
 
       </a-menu>
     </a-layout-sider>
     <a-layout-content
         :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
     >
-      <!--          <pre>-->
-      <!--             {{ebooks}}-->
-      <!--          </pre>-->
-      <a-list item-layout="vertical" size="large" :grid="{ gutter: 20, column: 3 }" :pagination="pagination" :data-source="ebooks">
+      <div class="welcome" v-show="isShowWelcome">
+        <p>这是一个测试</p>
+      </div>
+      <a-list v-show="!isShowWelcome" item-layout="vertical" size="large" :grid="{ gutter: 20, column: 3 }" :pagination="pagination" :data-source="ebooks">
 
         <template #renderItem="{ item }">
           <a-list-item key="item.name">
@@ -119,7 +147,22 @@ export default defineComponent({
   setup(){
     console.log("setup");
     const ebooks = ref();
-    onMounted(()=>{
+
+    const isShowWelcome = ref(true);
+
+    const handleClick = (value: any) => {
+      console.log("menu click", value)
+      if (value.key === 'welcome') {
+        isShowWelcome.value = true;
+      } else if(value.key === 'Ebooks'){
+        isShowWelcome.value = false;
+        handleQueryEbook();
+      }else{
+        isShowWelcome.value = true;
+      }
+    };
+
+    const handleQueryEbook = () =>{
       console.log("onMounted");
       axios.get("http://localhost:8880/ebook/list",{
         params:{
@@ -134,8 +177,12 @@ export default defineComponent({
         console.log("------------");
         console.log(data);
       });
+    }
 
-    })
+    onMounted(()=>{
+      handleQueryEbook();
+
+    });
     return {
       ebooks,
       listData,
@@ -150,6 +197,8 @@ export default defineComponent({
         {type: 'LikeOutlined', text: '156'},
         {type: 'MessageOutlined', text: '2'},
       ],
+      isShowWelcome,
+      handleClick
     }
   }
 });

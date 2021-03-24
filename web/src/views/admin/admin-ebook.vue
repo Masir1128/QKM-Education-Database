@@ -165,6 +165,7 @@ export default defineComponent({
         pagination.value.current = params.page;
         pagination.value.total = data.content.total;
         console.log(response);
+        console.log(response);
         }else{
           message.error(data.message);
         }

@@ -14,6 +14,15 @@
             <span>欢迎</span>
         </a-menu-item>
 
+        <a-sub-menu v-for="item in level1" :key="item.id" >
+          <template v-slot:title>
+            <span><user-outlined />{{item.name}}</span>
+          </template>
+          <a-menu-item v-for="child in item.children" :key="child.id">
+            <MailOutlined /><span>{{child.name}}</span>
+          </a-menu-item>
+        </a-sub-menu>
+
 
         <a-sub-menu key="sub1">
           <template #title>
@@ -51,7 +60,6 @@
           <a-menu-item key="11">option11</a-menu-item>
           <a-menu-item key="12">option12</a-menu-item>
         </a-sub-menu>
-
         <a-sub-menu key="sub4">
           <template #title>
                 <span>
@@ -66,26 +74,25 @@
             <router-link to="/admin/ebook">电子书管理</router-link>
           </a-menu-item>
         </a-sub-menu>
-
         <a-sub-menu key="sub5" >
           <template #title>
         <span>
-          <MailOutlined />
-          <span>Navigation One</span>
+         <FolderOpenOutlined />
+          <span>资料管理</span>
         </span>
           </template>
-          <a-menu-item-group key="g1">
+          <a-menu-item-group v-for="item in level1" :key="item.id">
             <template #title>
-              <QqOutlined />
-              <span>Item 1</span>
+              <FolderOutlined />
+              <span>{{item.name}}</span>
             </template>
-            <a-menu-item key="1">Option 1</a-menu-item>
-            <a-menu-item key="2">Option 2</a-menu-item>
+            <a-menu-item v-for="child in item.children" :key="child.id">
+
+              <FilePdfOutlined />
+              <span>{{child.name}}</span>
+            </a-menu-item>
           </a-menu-item-group>
-          <a-menu-item-group key="g2" title="Item 2">
-            <a-menu-item key="3">Option 3</a-menu-item>
-            <a-menu-item key="4">Option 4</a-menu-item>
-          </a-menu-item-group>
+
         </a-sub-menu>
 
       </a-menu>
@@ -125,6 +132,8 @@
 <script lang="ts">
 import { defineComponent,onMounted,ref } from 'vue';
 import axios from 'axios';
+import { message } from 'ant-design-vue';
+import {Tool} from "@/util/tool";
 
 const listData: any = [];
 
@@ -147,13 +156,17 @@ export default defineComponent({
   setup(){
     console.log("setup");
     const ebooks = ref();
-
+    const categorys = ref();
+    const level1 = ref();
     const isShowWelcome = ref(true);
 
     const handleClick = (value: any) => {
       console.log("menu click", value)
       if (value.key === 'welcome') {
         isShowWelcome.value = true;
+        console.log("----------------------")
+        console.log((level1.value))
+        console.log("----------------------")
       } else if(value.key === 'Ebooks'){
         isShowWelcome.value = false;
         handleQueryEbook();
@@ -179,8 +192,25 @@ export default defineComponent({
       });
     }
 
+    const handleQueryCategory = () => {
+      axios.get("http://localhost:8880/category/all").then((response) => {
+        const data = response.data;
+        if (data.success) {
+          categorys.value = data.content;
+          console.log("原始数组：", categorys.value);
+
+          level1.value = [];
+          level1.value = Tool.array2Tree(categorys.value, 0);
+          console.log("树形结构：", level1);
+        } else {
+          message.error(data.message);
+        }
+      });
+    };
+
     onMounted(()=>{
-      handleQueryEbook();
+      //handleQueryEbook();
+      handleQueryCategory();
 
     });
     return {
@@ -197,8 +227,11 @@ export default defineComponent({
         {type: 'LikeOutlined', text: '156'},
         {type: 'MessageOutlined', text: '2'},
       ],
+      level1,
+      handleQueryCategory,
       isShowWelcome,
-      handleClick
+      handleClick,
+
     }
   }
 });

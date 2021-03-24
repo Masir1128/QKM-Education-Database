@@ -7,7 +7,12 @@
 
         <a-form layout="inline" :model="param">
           <a-form-item>
-            <a-button type="primary" @click="handleQuery()">
+            <a-input v-model:value="param.name" placeholder="名称">
+            </a-input>
+          </a-form-item>
+
+          <a-form-item>
+            <a-button type="primary" @click="handleQuery({page:1,size: pagination.pageSize})">
               查询
             </a-button>
           </a-form-item>
@@ -23,9 +28,10 @@
       <a-table
           :columns="columns"
           :row-key="record => record.id"
-          :data-source="level1"
+          :data-source="categorys"
+          :pagination="pagination"
           :loading="loading"
-          :pagination="false"
+          @change="handleTableChange"
       >
         <template #cover="{ text: cover }">
           <img v-if="cover" :src="cover" alt="avatar" />
@@ -65,15 +71,7 @@
         <a-input v-model:value="category.name" />
       </a-form-item>
       <a-form-item label="父分类">
-
-        <a-select
-            v-model:value="category.parent"
-            ref="select"
-        >
-          <a-select-option value="0">无</a-select-option>
-          <a-select-option v-for="c in level1" :key="c.id" :value="c.id" :disabled="category.id === c.id">{{c.name}}</a-select-option>
-        </a-select>
-
+        <a-input v-model:value="category.parent" />
       </a-form-item>
       <a-form-item label="顺序">
         <a-input v-model:value="category.sort" />
@@ -95,7 +93,11 @@ export default defineComponent({
     const param = ref();
     param.value = {};
     const categorys = ref();
-
+    const pagination = ref({
+      current: 1,
+      pageSize: 5,
+      total: 0
+    });
     const loading = ref(false);
 
     const columns = [
@@ -121,39 +123,41 @@ export default defineComponent({
     ];
 
     /**
-     * 一级分类树，children属性就是二级分类
-     * [{
-     *   id: "",
-     *   name: "",
-     *   children: [{
-     *     id: "",
-     *     name: "",
-     *   }]
-     * }]
-     */
-    const level1 = ref(); // 一级分类树，children属性就是二级分类
-    //level1.value = [];
-    /**
      * 数据查询
      */
-    const handleQuery = () => {
+    const handleQuery = (params: any) => {
       loading.value = true;
-      axios.get("http://localhost:8880/category/all").then((response) =>{
+      axios.get("http://localhost:8880/category/list", {
+        params:{
+          page:params.page,
+          size:params.size,
+          name:param.value.name
+        }
+      }).then((response) =>{
         loading.value = false;
         const data = response.data;
-        if (data.success) {
-          categorys.value = data.content;
-          console.log("原始数组：", categorys.value);
-
-          level1.value = [];
-          level1.value = Tool.array2Tree(categorys.value, 0);
-          console.log("树形结构：", level1);
-        } else {
+        if (data.success){
+        categorys.value = data.content.list;
+        // 重置分页
+        pagination.value.current = params.page;
+        pagination.value.total = data.content.total;
+        console.log(response);
+        }else{
           message.error(data.message);
         }
       });
     };
 
+    /**
+     *  表格点击页码时触发
+     */
+    const handleTableChange = (pagination: any) =>{
+      console.log("自带页面参数" + pagination);
+      handleQuery({
+        page: pagination.current,
+        size: pagination.pageSize
+      });
+    };
     // --------------- 表单 ------------
     const category = ref({});
     const modalVisible = ref(false);
@@ -168,7 +172,10 @@ export default defineComponent({
         if(data.success){
           modalLoading.value = false;
           // 重新加载数据
-          handleQuery();
+          handleQuery({
+            page:pagination.value.current,
+            size:pagination.value.pageSize
+          });
         }else{
           message.error(data.message)
         }
@@ -200,20 +207,27 @@ export default defineComponent({
         const data = response.data; // data = respomse
         if(data.success){
           // 重新加载数据
-          handleQuery();
+          handleQuery({
+            page:pagination.value.current,
+            size:pagination.value.pageSize
+          });
         }
       });
     };
 
     onMounted(() =>{
-      handleQuery();
+      handleQuery({
+        page:1,
+        size:pagination.value.pageSize
+      });
     });
     return{
       param,
-      level1,
-      //categorys,
+      categorys,
+      pagination,
       columns,
       loading,
+      handleTableChange,
       handleQuery,
 
       edit,

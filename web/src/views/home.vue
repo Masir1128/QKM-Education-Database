@@ -14,14 +14,14 @@
             <span>欢迎</span>
         </a-menu-item>
 
-        <a-sub-menu v-for="item in level1" :key="item.id" >
-          <template v-slot:title>
-            <span><user-outlined />{{item.name}}</span>
-          </template>
-          <a-menu-item v-for="child in item.children" :key="child.id">
-            <MailOutlined /><span>{{child.name}}</span>
-          </a-menu-item>
-        </a-sub-menu>
+<!--        <a-sub-menu v-for="item in level1" :key="item.id" >-->
+<!--          <template v-slot:title>-->
+<!--            <span><user-outlined />{{item.name}}</span>-->
+<!--          </template>-->
+<!--          <a-menu-item v-for="child in item.children" :key="child.id">-->
+<!--            <MailOutlined /><span>{{child.name}}</span>-->
+<!--          </a-menu-item>-->
+<!--        </a-sub-menu>-->
 
 
         <a-sub-menu key="sub1">
@@ -60,20 +60,21 @@
           <a-menu-item key="11">option11</a-menu-item>
           <a-menu-item key="12">option12</a-menu-item>
         </a-sub-menu>
-        <a-sub-menu key="sub4">
-          <template #title>
-                <span>
-                  <FilePdfOutlined />
-                  资料管理
-                </span>
-          </template>
-          <a-menu-item key="Ebooks">机器人电子书</a-menu-item>
-          <a-menu-item key="14">机器人短视频</a-menu-item>
-          <a-menu-item key="15">FAQ</a-menu-item>
-          <a-menu-item key="/admin/ebook">
-            <router-link to="/admin/ebook">电子书管理</router-link>
-          </a-menu-item>
-        </a-sub-menu>
+<!--        <a-sub-menu key="sub4">-->
+<!--          <template #title>-->
+<!--                <span>-->
+<!--                  <FilePdfOutlined />-->
+<!--                  资料管理-->
+<!--                </span>-->
+<!--          </template>-->
+<!--          <a-menu-item key="13">机器人电子书</a-menu-item>-->
+<!--          <a-menu-item key="14">机器人短视频</a-menu-item>-->
+<!--          <a-menu-item key="15">FAQ</a-menu-item>-->
+<!--          <a-menu-item key="/admin/ebook">-->
+<!--            <router-link to="/admin/ebook">电子书管理</router-link>-->
+<!--          </a-menu-item>-->
+<!--        </a-sub-menu>-->
+
         <a-sub-menu key="sub5" >
           <template #title>
         <span>
@@ -159,6 +160,8 @@ export default defineComponent({
     const categorys = ref();
     const level1 = ref();
     const isShowWelcome = ref(true);
+    let categoryId2 = 0;
+
 
     const handleClick = (value: any) => {
       console.log("menu click", value)
@@ -167,11 +170,13 @@ export default defineComponent({
         console.log("----------------------")
         console.log((level1.value))
         console.log("----------------------")
-      } else if(value.key === 'Ebooks'){
+      }else if(value.key === '13'){
+        isShowWelcome.value = false;
+        handleQueryCategory();
+      }else{
+        categoryId2 = value.key;
         isShowWelcome.value = false;
         handleQueryEbook();
-      }else{
-        isShowWelcome.value = true;
       }
     };
 
@@ -180,7 +185,8 @@ export default defineComponent({
       axios.get("http://localhost:8880/ebook/list",{
         params:{
           page:1,
-          size:1000
+          size:1000,
+          categoryId2: categoryId2
         }
 
       }).then((response) =>{

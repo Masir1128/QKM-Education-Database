@@ -307,7 +307,6 @@ export default defineComponent({
       });
     };
 
-
     onMounted(() =>{
       handleQuery();
     });

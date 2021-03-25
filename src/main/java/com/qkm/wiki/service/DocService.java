@@ -2,8 +2,10 @@ package com.qkm.wiki.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.qkm.wiki.domain.Content;
 import com.qkm.wiki.domain.Doc;
 import com.qkm.wiki.domain.DocExample;
+import com.qkm.wiki.mapper.ContentMapper;
 import com.qkm.wiki.mapper.DocMapper;
 import com.qkm.wiki.req.DocQueryReq;
 import com.qkm.wiki.req.DocSaveReq;
@@ -26,6 +28,9 @@ public class DocService {
 
     @Resource
     private DocMapper DocMapper;
+
+    @Resource
+    private ContentMapper contentMapper;
 
     @Resource
     private SnowFlake snowFlake ;
@@ -82,14 +87,23 @@ public class DocService {
      */
     public void save(DocSaveReq req){
         Doc doc = CopyUtil.copy(req,Doc.class);
+        Content content = CopyUtil.copy(req,Content.class);
         if(ObjectUtils.isEmpty(req.getId())){
             // 新增
             doc.setId(snowFlake.nextId());
-
             DocMapper.insert(doc);
+
+            // 新增内容
+            doc.setId(doc.getId());
+            contentMapper.insert(content);
+
         }else {
             // 更新
             DocMapper.updateByPrimaryKey(doc);
+            int count = contentMapper.updateByPrimaryKeyWithBLOBs(content);
+            if(count == 0){
+                contentMapper.insert(content);
+            }
         }
 
 

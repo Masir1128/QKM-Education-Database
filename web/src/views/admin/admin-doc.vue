@@ -22,12 +22,14 @@
             </a-form>
           </p>
           <a-table
+              v-if="level1.length>0"
               :columns="columns"
               :row-key="record => record.id"
               :data-source="level1"
               :loading="loading"
               :pagination="false"
               size="small"
+              :defaultExpandAllRows="true"
           >
             <template #name="{ text, record }">
               {{record.sort}} {{text}}
@@ -156,7 +158,7 @@ export default defineComponent({
      * }]
      */
     const level1 = ref(); // 一级文档树，children属性就是二级文档
-    //level1.value = [];
+    level1.value = [];
     /**
      * 数据查询
      */
@@ -183,7 +185,8 @@ export default defineComponent({
     // --------------- 表单 ------------
     const treeSelectData =ref();
     treeSelectData.value = [];
-    const doc = ref({});
+    const doc = ref();
+    doc.value = {};  // 初始一个空对象
     const modalVisible = ref(false);
     const modalLoading = ref(false);
     // 定义编辑器
@@ -194,6 +197,7 @@ export default defineComponent({
     const handleSave = () => {
 
       modalLoading.value = true;
+      doc.value.content  = editor.txt.html();
       //===================
       axios.post("http://localhost:8880/doc/save", doc.value).then((response) =>{
         modalVisible.value = false;

@@ -158,11 +158,11 @@ export default defineComponent({
         const data = response.data;
         if (data.success) {
           docs.value = data.content;
-          console.log("原始数组：", docs.value);
+          //console.log("原始数组：", docs.value);
 
           level1.value = [];
           level1.value = Tool.array2Tree(docs.value, 0);
-          console.log("树形结构：", level1);
+          //console.log("树形结构：", level1);
         } else {
           message.error(data.message);
         }
@@ -202,7 +202,7 @@ export default defineComponent({
         const node = treeSelectData[i];
         if (node.id === id) {
           // 如果当前节点就是目标节点
-          console.log("disabled", node);
+          //console.log("disabled", node);
           // 将目标节点设置为disabled
           node.disabled = true;
 
@@ -218,6 +218,43 @@ export default defineComponent({
           const children = node.children;
           if (Tool.isNotEmpty(children)) {
             setDisable(children, id);
+          }
+        }
+      }
+    };
+
+    const deleteIds: Array<string> = [];
+    const deleteNames: Array<string> = [];
+
+    /**
+     * 查找整根树枝
+     */
+    const ids:Array<string> = [];
+    const getDeleteIds = (treeSelectData: any, id: any) => {
+      // console.log(treeSelectData, id);
+      // 遍历数组，即遍历某一层节点
+      for (let i = 0; i < treeSelectData.length; i++) {
+        const node = treeSelectData[i];
+        if (node.id === id) {
+          // 如果当前节点就是目标节点
+          console.log("delete", node);
+          // 将目标ID放入结果集ids
+          // node.disabled = true;
+          ids.push(id);
+          //deleteNames.push(node.name);
+
+          // 遍历所有子节点
+          const children = node.children;
+          if (Tool.isNotEmpty(children)) {
+            for (let j = 0; j < children.length; j++) {
+              getDeleteIds(children, children[j].id)
+            }
+          }
+        } else {
+          // 如果当前节点不是目标节点，则到其子节点再找找看。
+          const children = node.children;
+          if (Tool.isNotEmpty(children)) {
+            getDeleteIds(children, id);
           }
         }
       }
@@ -257,7 +294,10 @@ export default defineComponent({
      * 删除
      */
     const handleDelete = (id:number) =>{
-      axios.delete("http://localhost:8880/doc/delete/"+ id).then((response) =>{
+      //console.log("1111111111111111111")
+      //console.log(level1, id)
+      getDeleteIds(level1.value,id);
+      axios.delete("http://localhost:8880/doc/delete/" + ids.join(",")).then((response) =>{
 
         const data = response.data; // data = respomse
         if(data.success){

@@ -138,6 +138,8 @@ export default defineComponent({
      */
     const handleQuery = () => {
       loading.value = true;
+      // 将数据清空
+      level1.value = [];
       axios.get("http://localhost:8880/category/all").then((response) =>{
         loading.value = false;
         const data = response.data;

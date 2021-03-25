@@ -203,7 +203,8 @@ export default defineComponent({
         modalVisible.value = false;
         const data = response.data; // data = respomse
         if(data.success){
-          modalLoading.value = false;
+          //modalLoading.value = false;
+          message.success("保存成功!");
           // 重新加载数据
           handleQuery();
         }else{
@@ -281,12 +282,29 @@ export default defineComponent({
     };
 
     /**
+     * 内容查询
+     */
+    const handleQueryContent = () => {
+      axios.get("http://localhost:8880/doc/find-content/" + doc.value.id).then((response) =>{
+        const data = response.data;
+        if (data.success) {
+          editor.txt.html(data.content)
+          //console.log("树形结构：", level1);
+        } else {
+          message.error(data.message);
+        }
+      });
+    };
+
+    /**
      *  编辑
      */
     const edit =(record: any) =>{
+      // 清空富文本框
+      editor.txt.html("");
       modalVisible.value = true;
       doc.value = Tool.copy(record);
-
+      handleQueryContent();
       // 不能选择当前节点及其所有子孙节点，作为父节点，会使树断开
       treeSelectData.value = Tool.copy(level1.value);
       setDisable(treeSelectData.value, record.id);
@@ -299,7 +317,8 @@ export default defineComponent({
      * 新增
      */
     const add =() =>{
-
+      // 清空富文本框
+      editor.txt.html("");
       modalVisible.value = true;
       doc.value = {
         ebookId:route.query.ebookId,

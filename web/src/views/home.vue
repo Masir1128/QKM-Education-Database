@@ -102,7 +102,8 @@
         :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
     >
       <div class="welcome" v-show="isShowWelcome">
-        <p>这是一个测试</p>
+        <p1>欢迎来到李群学院</p1>
+        <a-calendar v-model:value="value" @panelChange="onPanelChange" />
       </div>
       <a-list v-show="!isShowWelcome" item-layout="vertical" size="large" :grid="{ gutter: 20, column: 3 }" :pagination="pagination" :data-source="ebooks">
 

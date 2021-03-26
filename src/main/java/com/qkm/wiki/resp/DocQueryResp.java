@@ -1,6 +1,9 @@
 package com.qkm.wiki.resp;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 public class DocQueryResp {
+    @JsonSerialize(using= ToStringSerializer.class)
     private Long id;
 
     private Long ebookId;

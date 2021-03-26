@@ -95,7 +95,7 @@ public class DocService {
             DocMapper.insert(doc);
 
             // 新增内容
-            doc.setId(doc.getId());
+            content.setId(doc.getId());
             contentMapper.insert(content);
 
         }else {
@@ -117,6 +117,10 @@ public class DocService {
         DocMapper.deleteByPrimaryKey(id);
     }
 
+    /**
+     * 删除功能，主要为树枝搭建
+     * @param ids
+     */
     public void delete(List<String> ids) {
         DocExample docExample = new DocExample();
         DocExample.Criteria criteria = docExample.createCriteria();

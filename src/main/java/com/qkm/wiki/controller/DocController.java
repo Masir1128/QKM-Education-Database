@@ -62,8 +62,6 @@ public class DocController {
     public CommonResp delete(@PathVariable String idsStr) {
         CommonResp resp = new CommonResp<>();
         List<String> list = Arrays.asList(idsStr.split(","));
-        System.out.println("666666666666666");
-        System.out.println(list);
         DocService.delete(list);
         return resp;
     }

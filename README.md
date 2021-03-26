@@ -20,3 +20,5 @@
 - ant-design-vue@2.0.0-rc.3 
 - vue/cli
 - axios@0.21.0
+
+20210326 更新编辑器

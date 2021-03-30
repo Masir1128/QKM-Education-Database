@@ -1,11 +1,13 @@
 package com.qkm.wiki.controller;
 
 import com.qkm.wiki.req.UserQueryReq;
+import com.qkm.wiki.req.UserResetPasswordReq;
 import com.qkm.wiki.req.UserSaveReq;
 import com.qkm.wiki.resp.CommonResp;
 import com.qkm.wiki.resp.UserQueryResp;
 import com.qkm.wiki.resp.PageResp;
 import com.qkm.wiki.service.UserService;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -38,6 +40,7 @@ public class UserController {
      */
     @PostMapping("/save")
     public CommonResp save(@Valid @RequestBody UserSaveReq req){
+        req.setPassword(DigestUtils.md5DigestAsHex(req.getPassword().getBytes()));
         CommonResp resp = new CommonResp<>();
         UserService.save(req);
         return resp;
@@ -52,6 +55,14 @@ public class UserController {
     public CommonResp delete(@PathVariable Long id){
         CommonResp resp = new CommonResp<>();
         UserService.delete(id);
+        return resp;
+    }
+
+    @PostMapping("/reset-password")
+    public CommonResp resetPassword(@Valid @RequestBody UserResetPasswordReq req) {
+        req.setPassword(DigestUtils.md5DigestAsHex(req.getPassword().getBytes()));
+        CommonResp resp = new CommonResp<>();
+        UserService.resetPassword(req);
         return resp;
     }
 }

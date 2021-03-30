@@ -10,6 +10,7 @@ import com.qkm.wiki.mapper.UserMapper;
 
 import com.qkm.wiki.req.UserQueryReq;
 
+import com.qkm.wiki.req.UserResetPasswordReq;
 import com.qkm.wiki.req.UserSaveReq;
 import com.qkm.wiki.resp.PageResp;
 
@@ -110,6 +111,12 @@ public class UserService {
         }
     }
 
-
+    /**
+     * 修改密码
+     */
+    public void resetPassword(UserResetPasswordReq req) {
+        User user = CopyUtil.copy(req, User.class);
+        userMapper.updateByPrimaryKeySelective(user);
+    }
 
 }

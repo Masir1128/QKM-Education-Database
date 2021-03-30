@@ -1,9 +1,11 @@
 package com.qkm.wiki.controller;
 
+import com.qkm.wiki.req.UserLoginReq;
 import com.qkm.wiki.req.UserQueryReq;
 import com.qkm.wiki.req.UserResetPasswordReq;
 import com.qkm.wiki.req.UserSaveReq;
 import com.qkm.wiki.resp.CommonResp;
+import com.qkm.wiki.resp.UserLoginResp;
 import com.qkm.wiki.resp.UserQueryResp;
 import com.qkm.wiki.resp.PageResp;
 import com.qkm.wiki.service.UserService;
@@ -63,6 +65,14 @@ public class UserController {
         req.setPassword(DigestUtils.md5DigestAsHex(req.getPassword().getBytes()));
         CommonResp resp = new CommonResp<>();
         UserService.resetPassword(req);
+        return resp;
+    }
+
+    @PostMapping("/login")
+    public CommonResp login(@Valid @RequestBody UserLoginReq req) {
+        req.setPassword(DigestUtils.md5DigestAsHex(req.getPassword().getBytes()));
+        CommonResp<UserLoginResp> resp = new CommonResp<>();
+        UserLoginResp userLoginResp = UserService.login(req);
         return resp;
     }
 }

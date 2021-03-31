@@ -18,9 +18,11 @@ import com.qkm.wiki.util.CopyUtil;
 import com.qkm.wiki.util.RedisUtil;
 import com.qkm.wiki.util.RequestContext;
 import com.qkm.wiki.util.SnowFlake;
+import com.qkm.wiki.websocket.WebSocketServer;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
-
+import org.slf4j.MDC;
 import javax.annotation.Resource;
 import java.util.List;
 
@@ -45,6 +47,10 @@ public class DocService {
 
     @Resource
     public RedisUtil redisUtil;
+
+    @Resource
+    public WsService wsService;
+
 
     public List<DocQueryResp> all(Long ebookId){
         DocExample docExample = new DocExample();
@@ -97,6 +103,7 @@ public class DocService {
      * 保存
      * @param req
      */
+    @Transactional
     public void save(DocSaveReq req){
         Doc doc = CopyUtil.copy(req,Doc.class);
         Content content = CopyUtil.copy(req,Content.class);
@@ -168,6 +175,17 @@ public class DocService {
         } else {
             throw new BusinessException(BusinessExceptionCode.VOTE_REPEAT);
         }
+
+        // 推送消息
+        Doc docDb = DocMapper.selectByPrimaryKey(id);
+        String logId = MDC.get("LOG_ID");
+        wsService.sendInfo("【" + docDb.getName() + "】被点赞！", logId);
+        // rocketMQTemplate.convertAndSend("VOTE_TOPIC", "【" + docDb.getName() + "】被点赞！");
     }
 
+
+    public void updateEbookInfo() {
+        docMapperCust.updateEbookInfo();
+    }
 }
+

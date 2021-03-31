@@ -5,13 +5,18 @@ import com.github.pagehelper.PageInfo;
 import com.qkm.wiki.domain.Content;
 import com.qkm.wiki.domain.Doc;
 import com.qkm.wiki.domain.DocExample;
+import com.qkm.wiki.exception.BusinessException;
+import com.qkm.wiki.exception.BusinessExceptionCode;
 import com.qkm.wiki.mapper.ContentMapper;
 import com.qkm.wiki.mapper.DocMapper;
+import com.qkm.wiki.mapper.DocMapperCust;
 import com.qkm.wiki.req.DocQueryReq;
 import com.qkm.wiki.req.DocSaveReq;
 import com.qkm.wiki.resp.DocQueryResp;
 import com.qkm.wiki.resp.PageResp;
 import com.qkm.wiki.util.CopyUtil;
+import com.qkm.wiki.util.RedisUtil;
+import com.qkm.wiki.util.RequestContext;
 import com.qkm.wiki.util.SnowFlake;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
@@ -30,10 +35,16 @@ public class DocService {
     private DocMapper DocMapper;
 
     @Resource
+    private DocMapperCust docMapperCust;
+
+    @Resource
     private ContentMapper contentMapper;
 
     @Resource
     private SnowFlake snowFlake ;
+
+    @Resource
+    public RedisUtil redisUtil;
 
     public List<DocQueryResp> all(Long ebookId){
         DocExample docExample = new DocExample();
@@ -92,6 +103,8 @@ public class DocService {
         if(ObjectUtils.isEmpty(req.getId())){
             // 新增
             doc.setId(snowFlake.nextId());
+            doc.setViewCount(0);
+            doc.setVoteCount(0);
             DocMapper.insert(doc);
 
             // 新增内容
@@ -133,10 +146,28 @@ public class DocService {
      */
     public String findContent(Long id){
        Content content = contentMapper.selectByPrimaryKey(id);
+        // 文档阅读数+1
+        docMapperCust.increaseViewCount(id);
         if (ObjectUtils.isEmpty(content)) {
             return "";
         } else {
             return content.getContent();
         }
     }
+
+
+    /**
+     * 点赞
+     */
+    public void vote(Long id) {
+        // docMapperCust.increaseVoteCount(id);
+        // 远程IP+doc.id作为key，24小时内不能重复
+        String ip = RequestContext.getRemoteAddr();
+        if (redisUtil.validateRepeat("DOC_VOTE_" + id + "_" + ip, 5000)) {
+            docMapperCust.increaseVoteCount(id);
+        } else {
+            throw new BusinessException(BusinessExceptionCode.VOTE_REPEAT);
+        }
+    }
+
 }

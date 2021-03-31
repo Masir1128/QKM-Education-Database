@@ -82,6 +82,11 @@ public class UserController {
         return resp;
     }
 
+    /**
+     * 用户登录接口
+     * @param req
+     * @return
+     */
     @PostMapping("/login")
     public CommonResp login(@Valid @RequestBody UserLoginReq req) {
         req.setPassword(DigestUtils.md5DigestAsHex(req.getPassword().getBytes()));
@@ -96,4 +101,18 @@ public class UserController {
 
         return resp;
     }
+
+    /**
+     * 用户退出登录
+     * @param token
+     * @return
+     */
+    @GetMapping("/logout/{token}")
+    public CommonResp logout(@PathVariable String token) {
+        CommonResp resp = new CommonResp<>();
+        redisTemplate.delete(token);
+        LOG.info("从redis中删除token: {}", token);
+        return resp;
+    }
+
 }

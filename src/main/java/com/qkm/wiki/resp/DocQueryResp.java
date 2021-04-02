@@ -6,6 +6,7 @@ public class DocQueryResp {
     @JsonSerialize(using= ToStringSerializer.class)
     private Long id;
 
+    @JsonSerialize(using= ToStringSerializer.class)
     private Long ebookId;
 
     private Long parent;

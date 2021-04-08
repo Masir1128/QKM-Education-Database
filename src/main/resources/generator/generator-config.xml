@@ -50,6 +50,7 @@
 <!--        <table tableName="category"/>-->
 <!--        <table tableName="doc"/>-->
 <!--        <table tableName="user"/>-->
-        <table tableName="ebook_snapshot"/>
+<!--        <table tableName="ebook_snapshot"/>-->
+        <table tableName="task"/>
     </context>
 </generatorConfiguration>

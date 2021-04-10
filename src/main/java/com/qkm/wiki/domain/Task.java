@@ -1,10 +1,6 @@
-package com.qkm.wiki.resp;
+package com.qkm.wiki.domain;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-
-public class TaskQueryResp {
-    @JsonSerialize(using= ToStringSerializer.class)
+public class Task {
     private Long id;
 
     private String taskname;

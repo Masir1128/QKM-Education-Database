@@ -51,6 +51,7 @@
 <!--        <table tableName="doc"/>-->
 <!--        <table tableName="user"/>-->
 <!--        <table tableName="ebook_snapshot"/>-->
-        <table tableName="task"/>
+<!--        <table tableName="taskcategory"/>-->
+        <table tableName="score"/>
     </context>
 </generatorConfiguration>

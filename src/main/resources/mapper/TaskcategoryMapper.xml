@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qkm.wiki.mapper.TaskcategoryMapper">
+  <resultMap id="BaseResultMap" type="com.qkm.wiki.domain.Taskcategory">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="parent" jdbcType="BIGINT" property="parent" />
+    <result column="parent2" jdbcType="BIGINT" property="parent2" />
+    <result column="parent3" jdbcType="BIGINT" property="parent3" />
+    <result column="task_count" jdbcType="INTEGER" property="taskCount" />
+    <result column="tasksort" jdbcType="INTEGER" property="tasksort" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, `name`, parent, parent2, parent3, task_count, tasksort
+  </sql>
+  <select id="selectByExample" parameterType="com.qkm.wiki.domain.TaskcategoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from taskcategory
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from taskcategory
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from taskcategory
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qkm.wiki.domain.TaskcategoryExample">
+    delete from taskcategory
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qkm.wiki.domain.Taskcategory">
+    insert into taskcategory (id, `name`, parent, 
+      parent2, parent3, task_count, 
+      tasksort)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{parent,jdbcType=BIGINT}, 
+      #{parent2,jdbcType=BIGINT}, #{parent3,jdbcType=BIGINT}, #{taskCount,jdbcType=INTEGER}, 
+      #{tasksort,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qkm.wiki.domain.Taskcategory">
+    insert into taskcategory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="parent != null">
+        parent,
+      </if>
+      <if test="parent2 != null">
+        parent2,
+      </if>
+      <if test="parent3 != null">
+        parent3,
+      </if>
+      <if test="taskCount != null">
+        task_count,
+      </if>
+      <if test="tasksort != null">
+        tasksort,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null">
+        #{parent,jdbcType=BIGINT},
+      </if>
+      <if test="parent2 != null">
+        #{parent2,jdbcType=BIGINT},
+      </if>
+      <if test="parent3 != null">
+        #{parent3,jdbcType=BIGINT},
+      </if>
+      <if test="taskCount != null">
+        #{taskCount,jdbcType=INTEGER},
+      </if>
+      <if test="tasksort != null">
+        #{tasksort,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qkm.wiki.domain.TaskcategoryExample" resultType="java.lang.Long">
+    select count(*) from taskcategory
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update taskcategory
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parent != null">
+        parent = #{record.parent,jdbcType=BIGINT},
+      </if>
+      <if test="record.parent2 != null">
+        parent2 = #{record.parent2,jdbcType=BIGINT},
+      </if>
+      <if test="record.parent3 != null">
+        parent3 = #{record.parent3,jdbcType=BIGINT},
+      </if>
+      <if test="record.taskCount != null">
+        task_count = #{record.taskCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.tasksort != null">
+        tasksort = #{record.tasksort,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update taskcategory
+    set id = #{record.id,jdbcType=BIGINT},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      parent = #{record.parent,jdbcType=BIGINT},
+      parent2 = #{record.parent2,jdbcType=BIGINT},
+      parent3 = #{record.parent3,jdbcType=BIGINT},
+      task_count = #{record.taskCount,jdbcType=INTEGER},
+      tasksort = #{record.tasksort,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qkm.wiki.domain.Taskcategory">
+    update taskcategory
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="parent != null">
+        parent = #{parent,jdbcType=BIGINT},
+      </if>
+      <if test="parent2 != null">
+        parent2 = #{parent2,jdbcType=BIGINT},
+      </if>
+      <if test="parent3 != null">
+        parent3 = #{parent3,jdbcType=BIGINT},
+      </if>
+      <if test="taskCount != null">
+        task_count = #{taskCount,jdbcType=INTEGER},
+      </if>
+      <if test="tasksort != null">
+        tasksort = #{tasksort,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qkm.wiki.domain.Taskcategory">
+    update taskcategory
+    set `name` = #{name,jdbcType=VARCHAR},
+      parent = #{parent,jdbcType=BIGINT},
+      parent2 = #{parent2,jdbcType=BIGINT},
+      parent3 = #{parent3,jdbcType=BIGINT},
+      task_count = #{taskCount,jdbcType=INTEGER},
+      tasksort = #{tasksort,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

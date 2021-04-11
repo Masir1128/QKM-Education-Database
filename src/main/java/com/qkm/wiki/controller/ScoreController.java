@@ -71,9 +71,12 @@ public class ScoreController {
      * @return
      */
     @RequestMapping(value = "/find/{name}/{parents}" )
-    public List<ScoreQueryResp> find(@PathVariable String name,@PathVariable String parents){
-
-        return ScoreService.find(name,parents);
+    public CommonResp find(@PathVariable String name,@PathVariable String parents){
+        CommonResp<List<ScoreQueryResp>> resp = new CommonResp<>();
+        List<ScoreQueryResp> list = ScoreService.find(name,parents);
+        resp.setContent(list);
+        return resp;
+        //return ScoreService.find(name,parents);
 
 
     }

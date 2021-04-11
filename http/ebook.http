@@ -1,3 +1,10 @@
 ###
 POST http://localhost:8880/ebook/save
 Content-Type: application/json
+###
+POST http://localhost:8880/doc?find-content=32997031891046400
+Content-Type: application/json
+###
+
+POST http://localhost:8880/doc?ebookId=32996880904491008
+Content-Type: application/json

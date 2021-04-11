@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qkm.wiki.mapper.ScoreMapper">
+  <resultMap id="BaseResultMap" type="com.qkm.wiki.domain.Score">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="level" jdbcType="VARCHAR" property="level" />
+    <result column="parents" jdbcType="VARCHAR" property="parents" />
+    <result column="child" jdbcType="VARCHAR" property="child" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="result" jdbcType="VARCHAR" property="result" />
+    <result column="view_count" jdbcType="INTEGER" property="viewCount" />
+    <result column="vote_count" jdbcType="INTEGER" property="voteCount" />
+    <result column="assessor" jdbcType="VARCHAR" property="assessor" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, `name`, `level`, parents, child, score, `result`, view_count, vote_count, assessor, 
+    `time`
+  </sql>
+  <select id="selectByExample" parameterType="com.qkm.wiki.domain.ScoreExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from score
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from score
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from score
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qkm.wiki.domain.ScoreExample">
+    delete from score
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qkm.wiki.domain.Score">
+    insert into score (id, `name`, `level`, 
+      parents, child, score, 
+      `result`, view_count, vote_count, 
+      assessor, `time`)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, 
+      #{parents,jdbcType=VARCHAR}, #{child,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, 
+      #{result,jdbcType=VARCHAR}, #{viewCount,jdbcType=INTEGER}, #{voteCount,jdbcType=INTEGER}, 
+      #{assessor,jdbcType=VARCHAR}, #{time,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qkm.wiki.domain.Score">
+    insert into score
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="level != null">
+        `level`,
+      </if>
+      <if test="parents != null">
+        parents,
+      </if>
+      <if test="child != null">
+        child,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="result != null">
+        `result`,
+      </if>
+      <if test="viewCount != null">
+        view_count,
+      </if>
+      <if test="voteCount != null">
+        vote_count,
+      </if>
+      <if test="assessor != null">
+        assessor,
+      </if>
+      <if test="time != null">
+        `time`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="parents != null">
+        #{parents,jdbcType=VARCHAR},
+      </if>
+      <if test="child != null">
+        #{child,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="result != null">
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null">
+        #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="voteCount != null">
+        #{voteCount,jdbcType=INTEGER},
+      </if>
+      <if test="assessor != null">
+        #{assessor,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qkm.wiki.domain.ScoreExample" resultType="java.lang.Long">
+    select count(*) from score
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update score
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.level != null">
+        `level` = #{record.level,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parents != null">
+        parents = #{record.parents,jdbcType=VARCHAR},
+      </if>
+      <if test="record.child != null">
+        child = #{record.child,jdbcType=VARCHAR},
+      </if>
+      <if test="record.score != null">
+        score = #{record.score,jdbcType=INTEGER},
+      </if>
+      <if test="record.result != null">
+        `result` = #{record.result,jdbcType=VARCHAR},
+      </if>
+      <if test="record.viewCount != null">
+        view_count = #{record.viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.voteCount != null">
+        vote_count = #{record.voteCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.assessor != null">
+        assessor = #{record.assessor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.time != null">
+        `time` = #{record.time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update score
+    set id = #{record.id,jdbcType=BIGINT},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      `level` = #{record.level,jdbcType=VARCHAR},
+      parents = #{record.parents,jdbcType=VARCHAR},
+      child = #{record.child,jdbcType=VARCHAR},
+      score = #{record.score,jdbcType=INTEGER},
+      `result` = #{record.result,jdbcType=VARCHAR},
+      view_count = #{record.viewCount,jdbcType=INTEGER},
+      vote_count = #{record.voteCount,jdbcType=INTEGER},
+      assessor = #{record.assessor,jdbcType=VARCHAR},
+      `time` = #{record.time,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qkm.wiki.domain.Score">
+    update score
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null">
+        `level` = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="parents != null">
+        parents = #{parents,jdbcType=VARCHAR},
+      </if>
+      <if test="child != null">
+        child = #{child,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="result != null">
+        `result` = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="viewCount != null">
+        view_count = #{viewCount,jdbcType=INTEGER},
+      </if>
+      <if test="voteCount != null">
+        vote_count = #{voteCount,jdbcType=INTEGER},
+      </if>
+      <if test="assessor != null">
+        assessor = #{assessor,jdbcType=VARCHAR},
+      </if>
+      <if test="time != null">
+        `time` = #{time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qkm.wiki.domain.Score">
+    update score
+    set `name` = #{name,jdbcType=VARCHAR},
+      `level` = #{level,jdbcType=VARCHAR},
+      parents = #{parents,jdbcType=VARCHAR},
+      child = #{child,jdbcType=VARCHAR},
+      score = #{score,jdbcType=INTEGER},
+      `result` = #{result,jdbcType=VARCHAR},
+      view_count = #{viewCount,jdbcType=INTEGER},
+      vote_count = #{voteCount,jdbcType=INTEGER},
+      assessor = #{assessor,jdbcType=VARCHAR},
+      `time` = #{time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectScoreByCondition"  resultType="com.qkm.wiki.resp.ScoreQueryResp">
+   select `name`,`level`, `child`,`score`,`result`,`assessor`,`time`  from score where name = #{name,jdbcType=VARCHAR} and parents = #{parents,jdbcType=VARCHAR}
+  </select>
+</mapper>

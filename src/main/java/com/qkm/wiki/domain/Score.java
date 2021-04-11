@@ -1,13 +1,9 @@
-package com.qkm.wiki.resp;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+package com.qkm.wiki.domain;
 
 import java.util.Date;
 
-public class ScoreQueryResp {
-    @JsonSerialize(using= ToStringSerializer.class)
-    //private Long id;
+public class Score {
+    private Long id;
 
     private String name;
 
@@ -21,21 +17,21 @@ public class ScoreQueryResp {
 
     private String result;
 
-   // private Integer viewCount;
+    private Integer viewCount;
 
-   // private Integer voteCount;
+    private Integer voteCount;
 
     private String assessor;
 
     private Date time;
-//
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -84,22 +80,22 @@ public class ScoreQueryResp {
     public void setResult(String result) {
         this.result = result;
     }
-//
-//    public Integer getViewCount() {
-//        return viewCount;
-//    }
-//
-//    public void setViewCount(Integer viewCount) {
-//        this.viewCount = viewCount;
-//    }
-//
-//    public Integer getVoteCount() {
-//        return voteCount;
-//    }
-//
-//    public void setVoteCount(Integer voteCount) {
-//        this.voteCount = voteCount;
-//    }
+
+    public Integer getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Integer viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public Integer getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(Integer voteCount) {
+        this.voteCount = voteCount;
+    }
 
     public String getAssessor() {
         return assessor;
@@ -123,12 +119,15 @@ public class ScoreQueryResp {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", name=").append(name);
         sb.append(", level=").append(level);
         sb.append(", parents=").append(parents);
         sb.append(", child=").append(child);
         sb.append(", score=").append(score);
         sb.append(", result=").append(result);
+        sb.append(", viewCount=").append(viewCount);
+        sb.append(", voteCount=").append(voteCount);
         sb.append(", assessor=").append(assessor);
         sb.append(", time=").append(time);
         sb.append("]");

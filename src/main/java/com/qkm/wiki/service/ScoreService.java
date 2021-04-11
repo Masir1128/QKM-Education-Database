@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.qkm.wiki.domain.Score;
 import com.qkm.wiki.domain.ScoreExample;
+import com.qkm.wiki.domain.Test;
 import com.qkm.wiki.mapper.ScoreMapper;
 import com.qkm.wiki.req.ScoreQueryReq;
 import com.qkm.wiki.req.ScoreSaveReq;
@@ -53,7 +54,6 @@ public class ScoreService {
         PageInfo<Score> pageInfo = new PageInfo<>(scoreList);
         pageInfo.getTotal();
         pageInfo.getPages();
-
         System.out.println(pageInfo.getTotal());
 //        List<ScoreResp> respList = new ArrayList<>();
 //        for(Score score : scoreList){
@@ -102,4 +102,17 @@ public class ScoreService {
         System.out.println(id);
         ScoreMapper.deleteByPrimaryKey(id);
     }
+
+    /**
+     * 查询
+     */
+    public List<ScoreQueryResp> find(String name ,String parents){
+        System.out.println("-------------");
+        System.out.println(name);
+        //System.out.println(Parents);
+//        ScoreMapper.selectScoreByCondition(name);
+        return ScoreMapper.selectScoreByCondition(name,parents);
+    }
+
+
 }

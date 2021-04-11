@@ -43,11 +43,7 @@ public class EbookController {
         return resp;
     }
 
-    /**
-     * Desp: 这是电子书管理删除接口
-     * @param
-     * @return
-     */
+
     @DeleteMapping("/delete/{id}")
     public CommonResp delete(@PathVariable Long id){
         CommonResp resp = new CommonResp<>();

@@ -1,5 +1,6 @@
 package com.qkm.wiki.controller;
 
+import com.qkm.wiki.domain.Test;
 import com.qkm.wiki.req.ScoreQueryReq;
 import com.qkm.wiki.req.ScoreSaveReq;
 import com.qkm.wiki.resp.CommonResp;
@@ -63,4 +64,18 @@ public class ScoreController {
         ScoreService.delete(id);
         return resp;
     }
+
+    /**
+     * Desp: 这是电子书管理删除接口
+     * @param
+     * @return
+     */
+    @RequestMapping(value = "/find/{name}/{parents}" )
+    public List<ScoreQueryResp> find(@PathVariable String name,@PathVariable String parents){
+
+        return ScoreService.find(name,parents);
+
+
+    }
+
 }

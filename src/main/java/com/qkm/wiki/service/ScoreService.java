@@ -107,10 +107,6 @@ public class ScoreService {
      * 查询
      */
     public List<ScoreQueryResp> find(String name ,String parents){
-        System.out.println("-------------");
-        System.out.println(name);
-        //System.out.println(Parents);
-//        ScoreMapper.selectScoreByCondition(name);
         return ScoreMapper.selectScoreByCondition(name,parents);
     }
 

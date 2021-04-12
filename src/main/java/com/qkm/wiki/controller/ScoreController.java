@@ -66,9 +66,9 @@ public class ScoreController {
     }
 
     /**
-     * Desp: 这是电子书管理删除接口
-     * @param
-     * @return
+     * Desp: 这是自定义查询的接口
+     * @param:查询姓名 + 查询任务
+     * @return:返回封装好的结果list
      */
     @RequestMapping(value = "/find/{name}/{parents}" )
     public CommonResp find(@PathVariable String name,@PathVariable String parents){
@@ -76,9 +76,6 @@ public class ScoreController {
         List<ScoreQueryResp> list = ScoreService.find(name,parents);
         resp.setContent(list);
         return resp;
-        //return ScoreService.find(name,parents);
-
-
     }
 
 }

@@ -32,4 +32,6 @@ public interface ScoreMapper {
     int updateByPrimaryKey(Score record);
 
     public List<ScoreQueryResp> selectScoreByCondition(String name,String parents);
+
+    public List<ScoreQueryResp> findname(String names);
 }

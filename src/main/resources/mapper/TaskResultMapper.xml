@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.qkm.wiki.mapper.TaskResultMapper" >
+
+    <select id="list" resultType="com.qkm.wiki.domain.Tstask1">
+        select `name`, `t1`, `t2`, `t3`, `t4`, `t5`, `t6`, `t7` from `tsl1task1`
+    </select>
+
+
+    <select id="list1" resultType="com.qkm.wiki.domain.Tstask2">
+        select `name`, `t1`, `t2`, `t3`, `t4`, `t5`, `t6` from `tsl1task2`
+    </select>
+
+</mapper>

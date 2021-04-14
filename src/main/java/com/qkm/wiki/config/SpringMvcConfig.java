@@ -30,11 +30,13 @@ public class SpringMvcConfig implements WebMvcConfigurer {
                         "/ebook/list",
                         "/task/list",
                         "/score/list",
+                        "/TaskResult/**",
                         "/score/find/**",
                         "/doc/all/**",
                         "/doc/vote/**",
                         "/doc/list/**",
                         "/doc/find-content/**",
+                        "/score/findname/**",
                         "/ebook-snapshot/**"
                 );
 

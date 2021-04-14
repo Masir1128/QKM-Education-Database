@@ -110,5 +110,9 @@ public class ScoreService {
         return ScoreMapper.selectScoreByCondition(name,parents);
     }
 
+    public List<ScoreQueryResp> findname(String name){
+        return ScoreMapper.findname(name);
+    }
+
 
 }

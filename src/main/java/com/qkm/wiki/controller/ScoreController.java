@@ -78,4 +78,24 @@ public class ScoreController {
         return resp;
     }
 
+    /**
+     * Desp: 查询
+     * @param:查询姓名
+     * @return:返回封装好的结果list
+     */
+    @RequestMapping(value = "/findname/{name}" )
+    public CommonResp findname(@PathVariable String name){
+        CommonResp<List<ScoreQueryResp>> resp = new CommonResp<>();
+        List<ScoreQueryResp> list = ScoreService.findname(name);
+        resp.setContent(list);
+        return resp;
+    }
+
+    /**
+     * Desp: 这是一个用于反馈到管理员页面的成绩反馈接口
+     * @param:查询
+     * @return:返回封装好的结果list
+     */
+
+
 }

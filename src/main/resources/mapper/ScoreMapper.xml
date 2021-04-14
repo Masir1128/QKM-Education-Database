@@ -307,4 +307,8 @@
   <select id="selectScoreByCondition"  resultType="com.qkm.wiki.resp.ScoreQueryResp">
    select `name`,`level`, `child`,`score`,`result`,`assessor`,`time`  from score where name = #{name,jdbcType=VARCHAR} and parents = #{parents,jdbcType=VARCHAR}
   </select>
+
+  <select id="findname"  resultType="com.qkm.wiki.resp.ScoreQueryResp">
+   select `name`,`parents`, `child`,`score`,`result`,`assessor`,`time`  from score where name = #{name,jdbcType=VARCHAR}
+  </select>
 </mapper>

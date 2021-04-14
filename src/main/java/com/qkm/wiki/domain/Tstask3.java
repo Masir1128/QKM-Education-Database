@@ -4,7 +4,7 @@ package com.qkm.wiki.domain;
  * @Masir Description:
  * IO:
  */
-public class Tstask1 {
+public class Tstask3 {
     private Long id;
 
     private String taskId;
@@ -19,6 +19,9 @@ public class Tstask1 {
     private Integer T5;
     private Integer T6;
     private Integer T7;
+    private Integer T8;
+    private Integer T9;
+
 
     @Override
     public String toString() {
@@ -33,6 +36,8 @@ public class Tstask1 {
         sb.append(", T5=").append(T5);
         sb.append(", T6=").append(T6);
         sb.append(", T7=").append(T7);
+        sb.append(", T8=").append(T8);
+        sb.append(", T9=").append(T9);
         sb.append("]");
         return sb.toString();
     }
@@ -113,9 +118,24 @@ public class Tstask1 {
         return T7;
     }
 
-    public void setT7(Integer t7) {
-        T7 = t7;
+    public void setT7(Integer T7) {
+        T7 = T7;
     }
 
+    public Integer getT8() {
+        return T8;
+    }
+
+    public void setT8(Integer t8) {
+        T8 = t8;
+    }
+
+    public Integer getT9() {
+        return T9;
+    }
+
+    public void setT9(Integer t9) {
+        T9 = t9;
+    }
 
 }

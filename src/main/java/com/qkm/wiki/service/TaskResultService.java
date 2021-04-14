@@ -1,8 +1,6 @@
 package com.qkm.wiki.service;
 
-import com.qkm.wiki.domain.Test;
-import com.qkm.wiki.domain.Tstask1;
-import com.qkm.wiki.domain.Tstask2;
+import com.qkm.wiki.domain.*;
 import com.qkm.wiki.mapper.TaskResultMapper;
 import com.qkm.wiki.mapper.TestMapper;
 import org.springframework.stereotype.Service;
@@ -26,5 +24,13 @@ public class TaskResultService {
 
     public List<Tstask2> list1(){
         return taskResultMapper.list1();
+    }
+
+    public List<Tstask3> list3(){
+        return taskResultMapper.list3();
+    }
+
+    public List<Tstask4> list4(){
+        return taskResultMapper.list4();
     }
 }

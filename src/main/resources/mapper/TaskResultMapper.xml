@@ -11,4 +11,12 @@
         select `name`, `t1`, `t2`, `t3`, `t4`, `t5`, `t6` from `tsl1task2`
     </select>
 
+    <select id="list3" resultType="com.qkm.wiki.domain.Tstask3">
+        select `name`, `t1`, `t2`, `t3`, `t4`, `t5`, `t6`, `t7`, `t8`, `t9` from `tsl1task3`
+    </select>
+
+    <select id="list4" resultType="com.qkm.wiki.domain.Tstask4">
+        select `name`, `t1`, `t2`, `t3`, `t4`, `t5`, `t6`, `t7`, `t8`, `t9` from `tsl1task4`
+    </select>
+
 </mapper>

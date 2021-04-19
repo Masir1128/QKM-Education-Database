@@ -74,6 +74,8 @@ public class ScoreController {
     public CommonResp find(@PathVariable String name,@PathVariable String parents){
         CommonResp<List<ScoreQueryResp>> resp = new CommonResp<>();
         List<ScoreQueryResp> list = ScoreService.find(name,parents);
+        //System.out.println("______________"+list.remove(1));
+        //list.remove(1);
         resp.setContent(list);
         return resp;
     }

@@ -2,9 +2,7 @@ package com.qkm.wiki.service;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
-import com.qkm.wiki.domain.Comment;
-import com.qkm.wiki.domain.CommentExample;
-import com.qkm.wiki.domain.Tstask2;
+import com.qkm.wiki.domain.*;
 import com.qkm.wiki.mapper.CommentMapper;
 import com.qkm.wiki.req.CommentQueryReq;
 import com.qkm.wiki.req.CommentSaveReq;
@@ -109,6 +107,12 @@ public class CommentService {
         CommentMapper.deleteByPrimaryKey(id);
     }
 
+    /**
+     * 查询
+     */
+    public List<CommentQueryResp> findebookid(Long ebookid){
+        return CommentMapper.findebookid(ebookid);
+    }
 
 
 }

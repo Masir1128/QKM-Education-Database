@@ -7,11 +7,13 @@ import com.qkm.wiki.req.CommentSaveReq;
 import com.qkm.wiki.resp.CommentQueryResp;
 import com.qkm.wiki.resp.CommonResp;
 import com.qkm.wiki.resp.PageResp;
+import com.qkm.wiki.resp.ScoreQueryResp;
 import com.qkm.wiki.service.CommentService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 /**
@@ -71,6 +73,19 @@ public class CommentController {
     public CommonResp delete(@PathVariable Long id){
         CommonResp resp = new CommonResp<>();
         CommentService.delete(id);
+        return resp;
+    }
+
+    /**
+     * 根据电子书的文档查询电子书评论
+     * @param ebookid
+     */
+    @GetMapping(value = "/findebookid/{ebookid}")
+    public CommonResp findebookid(@PathVariable Long ebookid){
+        CommonResp<List<CommentQueryResp>> resp = new CommonResp<>();
+        List<CommentQueryResp> list = CommentService.findebookid(ebookid);
+        System.out.println("-------------------"+list);
+        resp.setContent(list);
         return resp;
     }
 }

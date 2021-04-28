@@ -53,6 +53,7 @@
 <!--        <table tableName="ebook_snapshot"/>-->
 <!--        <table tableName="taskcategory"/>-->
 <!--        <table tableName="score"/>-->
-        <table tableName="comment"/>
+<!--        <table tableName="comment"/> -->
+        <table tableName="ability"/>
     </context>
 </generatorConfiguration>

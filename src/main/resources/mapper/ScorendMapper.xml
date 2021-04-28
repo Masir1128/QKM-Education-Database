@@ -1,0 +1,636 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qkm.wiki.mapper.ScorendMapper">
+  <resultMap id="BaseResultMap" type="com.qkm.wiki.domain.Scorend">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="read1" jdbcType="VARCHAR" property="read1" />
+    <result column="read2" jdbcType="VARCHAR" property="read2" />
+    <result column="bumen" jdbcType="VARCHAR" property="bumen" />
+    <result column="t1" jdbcType="INTEGER" property="t1" />
+    <result column="t2" jdbcType="INTEGER" property="t2" />
+    <result column="t3" jdbcType="INTEGER" property="t3" />
+    <result column="t4" jdbcType="INTEGER" property="t4" />
+    <result column="t5" jdbcType="INTEGER" property="t5" />
+    <result column="t6" jdbcType="INTEGER" property="t6" />
+    <result column="t7" jdbcType="INTEGER" property="t7" />
+    <result column="t8" jdbcType="INTEGER" property="t8" />
+    <result column="t9" jdbcType="INTEGER" property="t9" />
+    <result column="t10" jdbcType="INTEGER" property="t10" />
+    <result column="t11" jdbcType="INTEGER" property="t11" />
+    <result column="t12" jdbcType="INTEGER" property="t12" />
+    <result column="t13" jdbcType="INTEGER" property="t13" />
+    <result column="t14" jdbcType="INTEGER" property="t14" />
+    <result column="t15" jdbcType="INTEGER" property="t15" />
+    <result column="t16" jdbcType="INTEGER" property="t16" />
+    <result column="t17" jdbcType="INTEGER" property="t17" />
+    <result column="t18" jdbcType="INTEGER" property="t18" />
+    <result column="date" jdbcType="TIMESTAMP" property="date" />
+    <result column="teach" jdbcType="VARCHAR" property="teach" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.qkm.wiki.domain.Scorend">
+    <result column="content1" jdbcType="LONGVARCHAR" property="content1" />
+    <result column="content2" jdbcType="LONGVARCHAR" property="content2" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, `name`, read1, read2, bumen, t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12, 
+    t13, t14, t15, t16, t17, t18, `date`, teach
+  </sql>
+  <sql id="Blob_Column_List">
+    content1, content2
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.qkm.wiki.domain.ScorendExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from scorend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.qkm.wiki.domain.ScorendExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from scorend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from scorend
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from scorend
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qkm.wiki.domain.ScorendExample">
+    delete from scorend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qkm.wiki.domain.Scorend">
+    insert into scorend (id, `name`, read1, 
+      read2, bumen, t1, t2, 
+      t3, t4, t5, t6, 
+      t7, t8, t9, t10, 
+      t11, t12, t13, t14, 
+      t15, t16, t17, t18, 
+      `date`, teach, content1, 
+      content2)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{read1,jdbcType=VARCHAR}, 
+      #{read2,jdbcType=VARCHAR}, #{bumen,jdbcType=VARCHAR}, #{t1,jdbcType=INTEGER}, #{t2,jdbcType=INTEGER}, 
+      #{t3,jdbcType=INTEGER}, #{t4,jdbcType=INTEGER}, #{t5,jdbcType=INTEGER}, #{t6,jdbcType=INTEGER}, 
+      #{t7,jdbcType=INTEGER}, #{t8,jdbcType=INTEGER}, #{t9,jdbcType=INTEGER}, #{t10,jdbcType=INTEGER}, 
+      #{t11,jdbcType=INTEGER}, #{t12,jdbcType=INTEGER}, #{t13,jdbcType=INTEGER}, #{t14,jdbcType=INTEGER}, 
+      #{t15,jdbcType=INTEGER}, #{t16,jdbcType=INTEGER}, #{t17,jdbcType=INTEGER}, #{t18,jdbcType=INTEGER}, 
+      #{date,jdbcType=TIMESTAMP}, #{teach,jdbcType=VARCHAR}, #{content1,jdbcType=LONGVARCHAR}, 
+      #{content2,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qkm.wiki.domain.Scorend">
+    insert into scorend
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="read1 != null">
+        read1,
+      </if>
+      <if test="read2 != null">
+        read2,
+      </if>
+      <if test="bumen != null">
+        bumen,
+      </if>
+      <if test="t1 != null">
+        t1,
+      </if>
+      <if test="t2 != null">
+        t2,
+      </if>
+      <if test="t3 != null">
+        t3,
+      </if>
+      <if test="t4 != null">
+        t4,
+      </if>
+      <if test="t5 != null">
+        t5,
+      </if>
+      <if test="t6 != null">
+        t6,
+      </if>
+      <if test="t7 != null">
+        t7,
+      </if>
+      <if test="t8 != null">
+        t8,
+      </if>
+      <if test="t9 != null">
+        t9,
+      </if>
+      <if test="t10 != null">
+        t10,
+      </if>
+      <if test="t11 != null">
+        t11,
+      </if>
+      <if test="t12 != null">
+        t12,
+      </if>
+      <if test="t13 != null">
+        t13,
+      </if>
+      <if test="t14 != null">
+        t14,
+      </if>
+      <if test="t15 != null">
+        t15,
+      </if>
+      <if test="t16 != null">
+        t16,
+      </if>
+      <if test="t17 != null">
+        t17,
+      </if>
+      <if test="t18 != null">
+        t18,
+      </if>
+      <if test="date != null">
+        `date`,
+      </if>
+      <if test="teach != null">
+        teach,
+      </if>
+      <if test="content1 != null">
+        content1,
+      </if>
+      <if test="content2 != null">
+        content2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="read1 != null">
+        #{read1,jdbcType=VARCHAR},
+      </if>
+      <if test="read2 != null">
+        #{read2,jdbcType=VARCHAR},
+      </if>
+      <if test="bumen != null">
+        #{bumen,jdbcType=VARCHAR},
+      </if>
+      <if test="t1 != null">
+        #{t1,jdbcType=INTEGER},
+      </if>
+      <if test="t2 != null">
+        #{t2,jdbcType=INTEGER},
+      </if>
+      <if test="t3 != null">
+        #{t3,jdbcType=INTEGER},
+      </if>
+      <if test="t4 != null">
+        #{t4,jdbcType=INTEGER},
+      </if>
+      <if test="t5 != null">
+        #{t5,jdbcType=INTEGER},
+      </if>
+      <if test="t6 != null">
+        #{t6,jdbcType=INTEGER},
+      </if>
+      <if test="t7 != null">
+        #{t7,jdbcType=INTEGER},
+      </if>
+      <if test="t8 != null">
+        #{t8,jdbcType=INTEGER},
+      </if>
+      <if test="t9 != null">
+        #{t9,jdbcType=INTEGER},
+      </if>
+      <if test="t10 != null">
+        #{t10,jdbcType=INTEGER},
+      </if>
+      <if test="t11 != null">
+        #{t11,jdbcType=INTEGER},
+      </if>
+      <if test="t12 != null">
+        #{t12,jdbcType=INTEGER},
+      </if>
+      <if test="t13 != null">
+        #{t13,jdbcType=INTEGER},
+      </if>
+      <if test="t14 != null">
+        #{t14,jdbcType=INTEGER},
+      </if>
+      <if test="t15 != null">
+        #{t15,jdbcType=INTEGER},
+      </if>
+      <if test="t16 != null">
+        #{t16,jdbcType=INTEGER},
+      </if>
+      <if test="t17 != null">
+        #{t17,jdbcType=INTEGER},
+      </if>
+      <if test="t18 != null">
+        #{t18,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teach != null">
+        #{teach,jdbcType=VARCHAR},
+      </if>
+      <if test="content1 != null">
+        #{content1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content2 != null">
+        #{content2,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qkm.wiki.domain.ScorendExample" resultType="java.lang.Long">
+    select count(*) from scorend
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update scorend
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.read1 != null">
+        read1 = #{record.read1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.read2 != null">
+        read2 = #{record.read2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bumen != null">
+        bumen = #{record.bumen,jdbcType=VARCHAR},
+      </if>
+      <if test="record.t1 != null">
+        t1 = #{record.t1,jdbcType=INTEGER},
+      </if>
+      <if test="record.t2 != null">
+        t2 = #{record.t2,jdbcType=INTEGER},
+      </if>
+      <if test="record.t3 != null">
+        t3 = #{record.t3,jdbcType=INTEGER},
+      </if>
+      <if test="record.t4 != null">
+        t4 = #{record.t4,jdbcType=INTEGER},
+      </if>
+      <if test="record.t5 != null">
+        t5 = #{record.t5,jdbcType=INTEGER},
+      </if>
+      <if test="record.t6 != null">
+        t6 = #{record.t6,jdbcType=INTEGER},
+      </if>
+      <if test="record.t7 != null">
+        t7 = #{record.t7,jdbcType=INTEGER},
+      </if>
+      <if test="record.t8 != null">
+        t8 = #{record.t8,jdbcType=INTEGER},
+      </if>
+      <if test="record.t9 != null">
+        t9 = #{record.t9,jdbcType=INTEGER},
+      </if>
+      <if test="record.t10 != null">
+        t10 = #{record.t10,jdbcType=INTEGER},
+      </if>
+      <if test="record.t11 != null">
+        t11 = #{record.t11,jdbcType=INTEGER},
+      </if>
+      <if test="record.t12 != null">
+        t12 = #{record.t12,jdbcType=INTEGER},
+      </if>
+      <if test="record.t13 != null">
+        t13 = #{record.t13,jdbcType=INTEGER},
+      </if>
+      <if test="record.t14 != null">
+        t14 = #{record.t14,jdbcType=INTEGER},
+      </if>
+      <if test="record.t15 != null">
+        t15 = #{record.t15,jdbcType=INTEGER},
+      </if>
+      <if test="record.t16 != null">
+        t16 = #{record.t16,jdbcType=INTEGER},
+      </if>
+      <if test="record.t17 != null">
+        t17 = #{record.t17,jdbcType=INTEGER},
+      </if>
+      <if test="record.t18 != null">
+        t18 = #{record.t18,jdbcType=INTEGER},
+      </if>
+      <if test="record.date != null">
+        `date` = #{record.date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.teach != null">
+        teach = #{record.teach,jdbcType=VARCHAR},
+      </if>
+      <if test="record.content1 != null">
+        content1 = #{record.content1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.content2 != null">
+        content2 = #{record.content2,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update scorend
+    set id = #{record.id,jdbcType=BIGINT},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      read1 = #{record.read1,jdbcType=VARCHAR},
+      read2 = #{record.read2,jdbcType=VARCHAR},
+      bumen = #{record.bumen,jdbcType=VARCHAR},
+      t1 = #{record.t1,jdbcType=INTEGER},
+      t2 = #{record.t2,jdbcType=INTEGER},
+      t3 = #{record.t3,jdbcType=INTEGER},
+      t4 = #{record.t4,jdbcType=INTEGER},
+      t5 = #{record.t5,jdbcType=INTEGER},
+      t6 = #{record.t6,jdbcType=INTEGER},
+      t7 = #{record.t7,jdbcType=INTEGER},
+      t8 = #{record.t8,jdbcType=INTEGER},
+      t9 = #{record.t9,jdbcType=INTEGER},
+      t10 = #{record.t10,jdbcType=INTEGER},
+      t11 = #{record.t11,jdbcType=INTEGER},
+      t12 = #{record.t12,jdbcType=INTEGER},
+      t13 = #{record.t13,jdbcType=INTEGER},
+      t14 = #{record.t14,jdbcType=INTEGER},
+      t15 = #{record.t15,jdbcType=INTEGER},
+      t16 = #{record.t16,jdbcType=INTEGER},
+      t17 = #{record.t17,jdbcType=INTEGER},
+      t18 = #{record.t18,jdbcType=INTEGER},
+      `date` = #{record.date,jdbcType=TIMESTAMP},
+      teach = #{record.teach,jdbcType=VARCHAR},
+      content1 = #{record.content1,jdbcType=LONGVARCHAR},
+      content2 = #{record.content2,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update scorend
+    set id = #{record.id,jdbcType=BIGINT},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      read1 = #{record.read1,jdbcType=VARCHAR},
+      read2 = #{record.read2,jdbcType=VARCHAR},
+      bumen = #{record.bumen,jdbcType=VARCHAR},
+      t1 = #{record.t1,jdbcType=INTEGER},
+      t2 = #{record.t2,jdbcType=INTEGER},
+      t3 = #{record.t3,jdbcType=INTEGER},
+      t4 = #{record.t4,jdbcType=INTEGER},
+      t5 = #{record.t5,jdbcType=INTEGER},
+      t6 = #{record.t6,jdbcType=INTEGER},
+      t7 = #{record.t7,jdbcType=INTEGER},
+      t8 = #{record.t8,jdbcType=INTEGER},
+      t9 = #{record.t9,jdbcType=INTEGER},
+      t10 = #{record.t10,jdbcType=INTEGER},
+      t11 = #{record.t11,jdbcType=INTEGER},
+      t12 = #{record.t12,jdbcType=INTEGER},
+      t13 = #{record.t13,jdbcType=INTEGER},
+      t14 = #{record.t14,jdbcType=INTEGER},
+      t15 = #{record.t15,jdbcType=INTEGER},
+      t16 = #{record.t16,jdbcType=INTEGER},
+      t17 = #{record.t17,jdbcType=INTEGER},
+      t18 = #{record.t18,jdbcType=INTEGER},
+      `date` = #{record.date,jdbcType=TIMESTAMP},
+      teach = #{record.teach,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qkm.wiki.domain.Scorend">
+    update scorend
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="read1 != null">
+        read1 = #{read1,jdbcType=VARCHAR},
+      </if>
+      <if test="read2 != null">
+        read2 = #{read2,jdbcType=VARCHAR},
+      </if>
+      <if test="bumen != null">
+        bumen = #{bumen,jdbcType=VARCHAR},
+      </if>
+      <if test="t1 != null">
+        t1 = #{t1,jdbcType=INTEGER},
+      </if>
+      <if test="t2 != null">
+        t2 = #{t2,jdbcType=INTEGER},
+      </if>
+      <if test="t3 != null">
+        t3 = #{t3,jdbcType=INTEGER},
+      </if>
+      <if test="t4 != null">
+        t4 = #{t4,jdbcType=INTEGER},
+      </if>
+      <if test="t5 != null">
+        t5 = #{t5,jdbcType=INTEGER},
+      </if>
+      <if test="t6 != null">
+        t6 = #{t6,jdbcType=INTEGER},
+      </if>
+      <if test="t7 != null">
+        t7 = #{t7,jdbcType=INTEGER},
+      </if>
+      <if test="t8 != null">
+        t8 = #{t8,jdbcType=INTEGER},
+      </if>
+      <if test="t9 != null">
+        t9 = #{t9,jdbcType=INTEGER},
+      </if>
+      <if test="t10 != null">
+        t10 = #{t10,jdbcType=INTEGER},
+      </if>
+      <if test="t11 != null">
+        t11 = #{t11,jdbcType=INTEGER},
+      </if>
+      <if test="t12 != null">
+        t12 = #{t12,jdbcType=INTEGER},
+      </if>
+      <if test="t13 != null">
+        t13 = #{t13,jdbcType=INTEGER},
+      </if>
+      <if test="t14 != null">
+        t14 = #{t14,jdbcType=INTEGER},
+      </if>
+      <if test="t15 != null">
+        t15 = #{t15,jdbcType=INTEGER},
+      </if>
+      <if test="t16 != null">
+        t16 = #{t16,jdbcType=INTEGER},
+      </if>
+      <if test="t17 != null">
+        t17 = #{t17,jdbcType=INTEGER},
+      </if>
+      <if test="t18 != null">
+        t18 = #{t18,jdbcType=INTEGER},
+      </if>
+      <if test="date != null">
+        `date` = #{date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="teach != null">
+        teach = #{teach,jdbcType=VARCHAR},
+      </if>
+      <if test="content1 != null">
+        content1 = #{content1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content2 != null">
+        content2 = #{content2,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.qkm.wiki.domain.Scorend">
+    update scorend
+    set `name` = #{name,jdbcType=VARCHAR},
+      read1 = #{read1,jdbcType=VARCHAR},
+      read2 = #{read2,jdbcType=VARCHAR},
+      bumen = #{bumen,jdbcType=VARCHAR},
+      t1 = #{t1,jdbcType=INTEGER},
+      t2 = #{t2,jdbcType=INTEGER},
+      t3 = #{t3,jdbcType=INTEGER},
+      t4 = #{t4,jdbcType=INTEGER},
+      t5 = #{t5,jdbcType=INTEGER},
+      t6 = #{t6,jdbcType=INTEGER},
+      t7 = #{t7,jdbcType=INTEGER},
+      t8 = #{t8,jdbcType=INTEGER},
+      t9 = #{t9,jdbcType=INTEGER},
+      t10 = #{t10,jdbcType=INTEGER},
+      t11 = #{t11,jdbcType=INTEGER},
+      t12 = #{t12,jdbcType=INTEGER},
+      t13 = #{t13,jdbcType=INTEGER},
+      t14 = #{t14,jdbcType=INTEGER},
+      t15 = #{t15,jdbcType=INTEGER},
+      t16 = #{t16,jdbcType=INTEGER},
+      t17 = #{t17,jdbcType=INTEGER},
+      t18 = #{t18,jdbcType=INTEGER},
+      `date` = #{date,jdbcType=TIMESTAMP},
+      teach = #{teach,jdbcType=VARCHAR},
+      content1 = #{content1,jdbcType=LONGVARCHAR},
+      content2 = #{content2,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qkm.wiki.domain.Scorend">
+    update scorend
+    set `name` = #{name,jdbcType=VARCHAR},
+      read1 = #{read1,jdbcType=VARCHAR},
+      read2 = #{read2,jdbcType=VARCHAR},
+      bumen = #{bumen,jdbcType=VARCHAR},
+      t1 = #{t1,jdbcType=INTEGER},
+      t2 = #{t2,jdbcType=INTEGER},
+      t3 = #{t3,jdbcType=INTEGER},
+      t4 = #{t4,jdbcType=INTEGER},
+      t5 = #{t5,jdbcType=INTEGER},
+      t6 = #{t6,jdbcType=INTEGER},
+      t7 = #{t7,jdbcType=INTEGER},
+      t8 = #{t8,jdbcType=INTEGER},
+      t9 = #{t9,jdbcType=INTEGER},
+      t10 = #{t10,jdbcType=INTEGER},
+      t11 = #{t11,jdbcType=INTEGER},
+      t12 = #{t12,jdbcType=INTEGER},
+      t13 = #{t13,jdbcType=INTEGER},
+      t14 = #{t14,jdbcType=INTEGER},
+      t15 = #{t15,jdbcType=INTEGER},
+      t16 = #{t16,jdbcType=INTEGER},
+      t17 = #{t17,jdbcType=INTEGER},
+      t18 = #{t18,jdbcType=INTEGER},
+      `date` = #{date,jdbcType=TIMESTAMP},
+      teach = #{teach,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -2,10 +2,7 @@ package com.qkm.wiki.controller;
 
 import com.qkm.wiki.req.AbilityQueryReq;
 import com.qkm.wiki.req.AbilitySaveReq;
-import com.qkm.wiki.resp.CommonResp;
-import com.qkm.wiki.resp.PageResp;
-import com.qkm.wiki.resp.AbilityQueryResp;
-import com.qkm.wiki.resp.ScoreQueryResp;
+import com.qkm.wiki.resp.*;
 import com.qkm.wiki.service.AbilityService;
 import org.springframework.web.bind.annotation.*;
 
@@ -118,4 +115,16 @@ public class AbilityController {
         return resp;
     }
 
+    /**
+     * 根据任务查询导师评论和个人总结
+     * @param
+     */
+    @RequestMapping(value = "/conclude/{name}/{task}/{num}")
+    public CommonResp conclude(@PathVariable String name,@PathVariable String task,@PathVariable String num){
+        CommonResp<List<AbilityQueryResp>> resp = new CommonResp<>();
+        List<AbilityQueryResp> list = AbilityService.conclude(name,task,num);
+        System.out.println("-------------------"+list);
+        resp.setContent(list);
+        return resp;
+    }
 }

@@ -6,6 +6,7 @@ import com.qkm.wiki.domain.AbilityExample;
 import com.qkm.wiki.mapper.AbilityMapper;
 import com.qkm.wiki.req.AbilityQueryReq;
 import com.qkm.wiki.req.AbilitySaveReq;
+import com.qkm.wiki.resp.CommentQueryResp;
 import com.qkm.wiki.resp.PageResp;
 import com.qkm.wiki.resp.AbilityQueryResp;
 import com.qkm.wiki.resp.ScoreQueryResp;
@@ -120,4 +121,12 @@ public class AbilityService {
     public List<AbilityQueryResp> findaverage(String average){
         return AbilityMapper.findaverage(average);
     }
+
+    /**
+     * 查询
+     */
+    public List<AbilityQueryResp> conclude(String name , String task , String num){
+        return AbilityMapper.conclude(name,task,num);
+    }
+
 }

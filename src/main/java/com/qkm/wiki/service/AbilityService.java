@@ -57,14 +57,7 @@ public class AbilityService {
         pageInfo.getPages();
 
         System.out.println(pageInfo.getTotal());
-//        List<AbilityResp> respList = new ArrayList<>();
-//        for(Ability ability : abilityList){
-////            AbilityResp abilityResp = new AbilityResp();
-////            BeanUtils.copyProperties(ability,abilityResp);
-//            // 对象复制
-//            AbilityResp abilityResp = CopyUtil.copy(ability, AbilityResp.class);
-//            respList.add(abilityResp);
-//        }
+
 
         // 列表复制
         List<AbilityQueryResp> list = CopyUtil.copyList(abilityList, AbilityQueryResp.class);

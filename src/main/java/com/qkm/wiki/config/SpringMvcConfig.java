@@ -40,7 +40,10 @@ public class SpringMvcConfig implements WebMvcConfigurer {
                         "/score/findname/**",
                         "/ebook-snapshot/**",
                         "/scorend/**",
-                        "/ability/**"
+                        "/ability/**",
+                        "/useradmin/**",
+                        "/training/**",
+                        "/courseplan/**"
                 );
 
 //        registry.addInterceptor(actionInterceptor)

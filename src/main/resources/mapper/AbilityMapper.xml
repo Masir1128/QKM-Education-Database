@@ -462,7 +462,9 @@
   </select>
 
   <select id="conclude"  resultType="com.qkm.wiki.resp.AbilityQueryResp">
-   select `name`,`task`,`content1`,`content2` from ability where name = #{name,jdbcType=VARCHAR} and task = #{task,jdbcType=VARCHAR} and num = #{num,jdbcType=VARCHAR}
+   select `name`,`task`,`content1`,`content2`,`add1` from ability where name = #{name,jdbcType=VARCHAR} and task = #{task,jdbcType=VARCHAR} and num = #{num,jdbcType=VARCHAR}
 
   </select>
+
+
 </mapper>

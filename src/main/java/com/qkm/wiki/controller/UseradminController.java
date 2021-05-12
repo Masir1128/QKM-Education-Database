@@ -1,12 +1,11 @@
 package com.qkm.wiki.controller;
 
-import com.qkm.wiki.domain.Scorend;
-import com.qkm.wiki.req.ScorendQueryReq;
-import com.qkm.wiki.req.ScorendSaveReq;
-import com.qkm.wiki.resp.ScorendQueryResp;
+import com.qkm.wiki.req.UseradminQueryReq;
+import com.qkm.wiki.req.UseradminSaveReq;
+import com.qkm.wiki.resp.UseradminQueryResp;
 import com.qkm.wiki.resp.CommonResp;
 import com.qkm.wiki.resp.PageResp;
-import com.qkm.wiki.service.ScorendService;
+import com.qkm.wiki.service.UseradminService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -18,25 +17,25 @@ import java.util.List;
  * IO:
  */
 @RestController
-@RequestMapping("/scorend")
-public class ScorendController {
+@RequestMapping("/useradmin")
+public class UseradminController {
 
 
     @Resource
-    private ScorendService ScorendService;
+    private UseradminService UseradminService;
 
     @GetMapping("/all")
     public CommonResp all(){
-        CommonResp<List<ScorendQueryResp>> resp = new CommonResp<>();
-        List<ScorendQueryResp> list = ScorendService.all();
+        CommonResp<List<UseradminQueryResp>> resp = new CommonResp<>();
+        List<UseradminQueryResp> list = UseradminService.all();
         resp.setContent(list);
         return resp;
     }
 
     @GetMapping("/list")
-    public CommonResp list(@Valid ScorendQueryReq req){
-        CommonResp<PageResp<ScorendQueryResp>> resp = new CommonResp<>();
-        PageResp<ScorendQueryResp> list = ScorendService.list(req);
+    public CommonResp list(@Valid UseradminQueryReq req){
+        CommonResp<PageResp<UseradminQueryResp>> resp = new CommonResp<>();
+        PageResp<UseradminQueryResp> list = UseradminService.list(req);
         resp.setContent(list);
         return resp;
     }
@@ -47,9 +46,9 @@ public class ScorendController {
      * @return
      */
     @PostMapping("/save")
-    public CommonResp save(@Valid @RequestBody ScorendSaveReq req){
+    public CommonResp save(@Valid @RequestBody UseradminSaveReq req){
         CommonResp resp = new CommonResp<>();
-        ScorendService.save(req);
+        UseradminService.save(req);
         return resp;
     }
 
@@ -61,8 +60,9 @@ public class ScorendController {
     @DeleteMapping("/delete/{id}")
     public CommonResp delete(@PathVariable Long id){
         CommonResp resp = new CommonResp<>();
-        ScorendService.delete(id);
+        UseradminService.delete(id);
         return resp;
     }
+
 
 }

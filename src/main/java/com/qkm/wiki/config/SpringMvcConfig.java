@@ -43,7 +43,12 @@ public class SpringMvcConfig implements WebMvcConfigurer {
                         "/ability/**",
                         "/useradmin/**",
                         "/training/**",
-                        "/courseplan/**"
+                        "/courseplan/**",
+                        "/zhuanlan/**",
+                        "/zl/**",
+                        "/zlcat1/**",
+                        "/zlcat2/**",
+                        "/zlcat3/**"
                 );
 
 //        registry.addInterceptor(actionInterceptor)

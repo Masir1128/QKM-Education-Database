@@ -8,6 +8,7 @@ import com.qkm.wiki.req.ZlQueryReq;
 import com.qkm.wiki.req.ZlSaveReq;
 import com.qkm.wiki.resp.PageResp;
 import com.qkm.wiki.resp.ZlQueryResp;
+import com.qkm.wiki.resp.Zlcat3QueryResp;
 import com.qkm.wiki.util.CopyUtil;
 import com.qkm.wiki.util.SnowFlake;
 import org.springframework.stereotype.Service;
@@ -100,4 +101,9 @@ public class ZlService {
     public void delete(Long id){
         ZlMapper.deleteByPrimaryKey(id);
     }
+
+    public List<ZlQueryResp> findcat(String cat){
+        return ZlMapper.findcat(cat);
+    }
+
 }

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qkm.wiki.mapper.UseradminMapper">
+  <resultMap id="BaseResultMap" type="com.qkm.wiki.domain.Useradmin">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="agency" jdbcType="VARCHAR" property="agency" />
+    <result column="depart" jdbcType="VARCHAR" property="depart" />
+    <result column="del" jdbcType="VARCHAR" property="del" />
+    <result column="add1" jdbcType="VARCHAR" property="add1" />
+    <result column="add2" jdbcType="VARCHAR" property="add2" />
+    <result column="add3" jdbcType="VARCHAR" property="add3" />
+    <result column="add4" jdbcType="VARCHAR" property="add4" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, `name`, agency, depart, del, add1, add2, add3, add4
+  </sql>
+  <select id="selectByExample" parameterType="com.qkm.wiki.domain.UseradminExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from useradmin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from useradmin
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from useradmin
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.qkm.wiki.domain.UseradminExample">
+    delete from useradmin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.qkm.wiki.domain.Useradmin">
+    insert into useradmin (id, `name`, agency, 
+      depart, del, add1, 
+      add2, add3, add4)
+    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{agency,jdbcType=VARCHAR}, 
+      #{depart,jdbcType=VARCHAR}, #{del,jdbcType=VARCHAR}, #{add1,jdbcType=VARCHAR}, 
+      #{add2,jdbcType=VARCHAR}, #{add3,jdbcType=VARCHAR}, #{add4,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qkm.wiki.domain.Useradmin">
+    insert into useradmin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="agency != null">
+        agency,
+      </if>
+      <if test="depart != null">
+        depart,
+      </if>
+      <if test="del != null">
+        del,
+      </if>
+      <if test="add1 != null">
+        add1,
+      </if>
+      <if test="add2 != null">
+        add2,
+      </if>
+      <if test="add3 != null">
+        add3,
+      </if>
+      <if test="add4 != null">
+        add4,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="agency != null">
+        #{agency,jdbcType=VARCHAR},
+      </if>
+      <if test="depart != null">
+        #{depart,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null">
+        #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="add1 != null">
+        #{add1,jdbcType=VARCHAR},
+      </if>
+      <if test="add2 != null">
+        #{add2,jdbcType=VARCHAR},
+      </if>
+      <if test="add3 != null">
+        #{add3,jdbcType=VARCHAR},
+      </if>
+      <if test="add4 != null">
+        #{add4,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.qkm.wiki.domain.UseradminExample" resultType="java.lang.Long">
+    select count(*) from useradmin
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update useradmin
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        `name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.agency != null">
+        agency = #{record.agency,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depart != null">
+        depart = #{record.depart,jdbcType=VARCHAR},
+      </if>
+      <if test="record.del != null">
+        del = #{record.del,jdbcType=VARCHAR},
+      </if>
+      <if test="record.add1 != null">
+        add1 = #{record.add1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.add2 != null">
+        add2 = #{record.add2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.add3 != null">
+        add3 = #{record.add3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.add4 != null">
+        add4 = #{record.add4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update useradmin
+    set id = #{record.id,jdbcType=BIGINT},
+      `name` = #{record.name,jdbcType=VARCHAR},
+      agency = #{record.agency,jdbcType=VARCHAR},
+      depart = #{record.depart,jdbcType=VARCHAR},
+      del = #{record.del,jdbcType=VARCHAR},
+      add1 = #{record.add1,jdbcType=VARCHAR},
+      add2 = #{record.add2,jdbcType=VARCHAR},
+      add3 = #{record.add3,jdbcType=VARCHAR},
+      add4 = #{record.add4,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qkm.wiki.domain.Useradmin">
+    update useradmin
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="agency != null">
+        agency = #{agency,jdbcType=VARCHAR},
+      </if>
+      <if test="depart != null">
+        depart = #{depart,jdbcType=VARCHAR},
+      </if>
+      <if test="del != null">
+        del = #{del,jdbcType=VARCHAR},
+      </if>
+      <if test="add1 != null">
+        add1 = #{add1,jdbcType=VARCHAR},
+      </if>
+      <if test="add2 != null">
+        add2 = #{add2,jdbcType=VARCHAR},
+      </if>
+      <if test="add3 != null">
+        add3 = #{add3,jdbcType=VARCHAR},
+      </if>
+      <if test="add4 != null">
+        add4 = #{add4,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qkm.wiki.domain.Useradmin">
+    update useradmin
+    set `name` = #{name,jdbcType=VARCHAR},
+      agency = #{agency,jdbcType=VARCHAR},
+      depart = #{depart,jdbcType=VARCHAR},
+      del = #{del,jdbcType=VARCHAR},
+      add1 = #{add1,jdbcType=VARCHAR},
+      add2 = #{add2,jdbcType=VARCHAR},
+      add3 = #{add3,jdbcType=VARCHAR},
+      add4 = #{add4,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

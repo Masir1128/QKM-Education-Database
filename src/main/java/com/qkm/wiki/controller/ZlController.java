@@ -5,6 +5,7 @@ import com.qkm.wiki.req.ZlSaveReq;
 import com.qkm.wiki.resp.CommonResp;
 import com.qkm.wiki.resp.PageResp;
 import com.qkm.wiki.resp.ZlQueryResp;
+import com.qkm.wiki.resp.Zlcat3QueryResp;
 import com.qkm.wiki.service.ZlService;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,6 +62,19 @@ public class ZlController {
     public CommonResp delete(@PathVariable Long id){
         CommonResp resp = new CommonResp<>();
         ZlService.delete(id);
+        return resp;
+    }
+
+    /**
+     * Desp: 查询
+     * @param:查询姓名
+     * @return:返回封装好的结果list
+     */
+    @RequestMapping(value = "/find/{cat}" )
+    public CommonResp findlevel(@PathVariable String cat){
+        CommonResp<List<ZlQueryResp>> resp = new CommonResp<>();
+        List<ZlQueryResp> list = ZlService.findcat(cat);
+        resp.setContent(list);
         return resp;
     }
 }

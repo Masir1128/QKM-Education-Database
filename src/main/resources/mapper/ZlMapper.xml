@@ -416,4 +416,13 @@
   <select id="findcat"  resultType="com.qkm.wiki.resp.ZlQueryResp">
    select * from zl where add3 = #{cat,jdbcType=VARCHAR}
   </select>
+
+  <select id="findid"  resultType="com.qkm.wiki.resp.ZlQueryResp">
+   select `id`,`name`,`author`,`dates` from zl where id = #{id,jdbcType=BIGINT}
+  </select>
+
+
+  <select id="findpersonal"  resultType="com.qkm.wiki.resp.ZlQueryResp">
+   select * from zl where author = #{namer,jdbcType=VARCHAR}
+  </select>
 </mapper>

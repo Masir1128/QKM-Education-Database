@@ -39,6 +39,41 @@ public class ZlSaveReq {
 
     private Integer add7;
 
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "ZlSaveReq{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", category1=" + category1 +
+                ", category2=" + category2 +
+                ", category3=" + category3 +
+                ", description='" + description + '\'' +
+                ", cover='" + cover + '\'' +
+                ", viewcount=" + viewcount +
+                ", votecount=" + votecount +
+                ", dates=" + dates +
+                ", author='" + author + '\'' +
+                ", add1='" + add1 + '\'' +
+                ", add2='" + add2 + '\'' +
+                ", add3='" + add3 + '\'' +
+                ", add4='" + add4 + '\'' +
+                ", add5=" + add5 +
+                ", add6=" + add6 +
+                ", add7=" + add7 +
+                ", content='" + content + '\'' +
+                '}';
+    }
+
+    private String content;
+
     public Long getId() {
         return id;
     }
@@ -183,31 +218,4 @@ public class ZlSaveReq {
         this.add7 = add7;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
-        sb.append(", name=").append(name);
-        sb.append(", category1=").append(category1);
-        sb.append(", category2=").append(category2);
-        sb.append(", category3=").append(category3);
-        sb.append(", description=").append(description);
-        sb.append(", cover=").append(cover);
-        sb.append(", viewcount=").append(viewcount);
-        sb.append(", votecount=").append(votecount);
-        sb.append(", dates=").append(dates);
-        sb.append(", author=").append(author);
-        sb.append(", add1=").append(add1);
-        sb.append(", add2=").append(add2);
-        sb.append(", add3=").append(add3);
-        sb.append(", add4=").append(add4);
-        sb.append(", add5=").append(add5);
-        sb.append(", add6=").append(add6);
-        sb.append(", add7=").append(add7);
-        sb.append("]");
-        return sb.toString();
-    }
 }

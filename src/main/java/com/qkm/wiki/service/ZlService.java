@@ -1,9 +1,12 @@
 package com.qkm.wiki.service;
 
 import com.github.pagehelper.PageInfo;
+import com.qkm.wiki.domain.Content;
 import com.qkm.wiki.domain.Zl;
 import com.qkm.wiki.domain.ZlExample;
+import com.qkm.wiki.domain.Zldoc;
 import com.qkm.wiki.mapper.ZlMapper;
+import com.qkm.wiki.mapper.ZldocMapper;
 import com.qkm.wiki.req.ZlQueryReq;
 import com.qkm.wiki.req.ZlSaveReq;
 import com.qkm.wiki.resp.PageResp;
@@ -26,6 +29,9 @@ public class ZlService {
 
     @Resource
     private ZlMapper ZlMapper;
+
+    @Resource
+    private ZldocMapper zldocMapper;
 
     @Resource
     private SnowFlake snowFlake ;
@@ -82,14 +88,24 @@ public class ZlService {
      */
     public void save(ZlSaveReq req){
         Zl zl = CopyUtil.copy(req,Zl.class);
+        Zldoc zldoc = CopyUtil.copy(req,Zldoc.class);
         if(ObjectUtils.isEmpty(req.getId())){
             // 新增
             zl.setId(snowFlake.nextId());
 
             ZlMapper.insert(zl);
+
+            zldoc.setId(zl.getId());
+            zldocMapper.insert(zldoc);
+
+
         }else {
             // 更新
             ZlMapper.updateByPrimaryKey(zl);
+            int count = zldocMapper.updateByPrimaryKeyWithBLOBs(zldoc);
+            if(count == 0){
+                zldocMapper.insert(zldoc);
+            }
         }
 
 
@@ -105,5 +121,24 @@ public class ZlService {
     public List<ZlQueryResp> findcat(String cat){
         return ZlMapper.findcat(cat);
     }
+
+    public List<ZlQueryResp> findid(Long id){
+        return ZlMapper.findid(id);
+    }
+
+    public String findContent(Long id){
+        Zldoc zldoc = zldocMapper.selectByPrimaryKey(id);
+
+        if (ObjectUtils.isEmpty(zldoc)) {
+            return "";
+        } else {
+            return zldoc.getContent();
+        }
+    }
+
+    public List<ZlQueryResp> findpersonal(String cat){
+        return ZlMapper.findpersonal(cat);
+    }
+
 
 }

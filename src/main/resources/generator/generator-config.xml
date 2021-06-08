@@ -54,6 +54,6 @@
 <!--        <table tableName="taskcategory"/>-->
 <!--        <table tableName="score"/>-->
 <!--        <table tableName="comment"/> -->
-        <table tableName="zlcat3"/>
+        <table tableName="zldoc"/>
     </context>
 </generatorConfiguration>

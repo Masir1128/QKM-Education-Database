@@ -67,13 +67,53 @@ public class ZlController {
 
     /**
      * Desp: 查询
-     * @param:查询姓名
+     * @param:查询分类3
      * @return:返回封装好的结果list
      */
     @RequestMapping(value = "/find/{cat}" )
     public CommonResp findlevel(@PathVariable String cat){
         CommonResp<List<ZlQueryResp>> resp = new CommonResp<>();
         List<ZlQueryResp> list = ZlService.findcat(cat);
+        resp.setContent(list);
+        return resp;
+    }
+
+    /**
+     * Desp: 查询
+     * @param:查询标题
+     * @return:返回封装好的结果list
+     */
+    @RequestMapping(value = "/findname/{id}" )
+    public CommonResp findlevel(@PathVariable Long id){
+        CommonResp<List<ZlQueryResp>> resp = new CommonResp<>();
+        List<ZlQueryResp> list = ZlService.findid(id);
+        resp.setContent(list);
+        return resp;
+    }
+
+
+    /**
+     * Desp: 查询
+     * @param:查询内容
+     * @return:返回封装好的结果list
+     */
+    @GetMapping("/find-content/{id}")
+    public CommonResp findContent(@PathVariable Long id){
+        CommonResp<String> resp = new CommonResp<>();
+        String content = ZlService.findContent(id);
+        resp.setContent(content);
+        return resp;
+    }
+
+    /**
+     * Desp: 查询
+     * @param:查询人名下面的文章
+     * @return:返回封装好的结果list
+     */
+    @RequestMapping(value = "/findpersonal/{namer}" )
+    public CommonResp findpersonal(@PathVariable String namer){
+        CommonResp<List<ZlQueryResp>> resp = new CommonResp<>();
+        List<ZlQueryResp> list = ZlService.findpersonal(namer);
         resp.setContent(list);
         return resp;
     }

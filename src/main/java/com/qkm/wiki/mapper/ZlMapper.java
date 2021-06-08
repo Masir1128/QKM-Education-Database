@@ -32,4 +32,8 @@ public interface ZlMapper {
     int updateByPrimaryKey(Zl record);
 
     public List<ZlQueryResp> findcat(String cat);
+
+    public List<ZlQueryResp> findid(Long id);
+
+    public List<ZlQueryResp> findpersonal(String namer);
 }

@@ -48,7 +48,9 @@ public class SpringMvcConfig implements WebMvcConfigurer {
                         "/zl/**",
                         "/zlcat1/**",
                         "/zlcat2/**",
-                        "/zlcat3/**"
+                        "/zlcat3/**",
+                        "/acticle/**",
+                        "/upload/**"
                 );
 
 //        registry.addInterceptor(actionInterceptor)

@@ -122,6 +122,18 @@ public class ZlService {
         return ZlMapper.findcat(cat);
     }
 
+    public List<ZlQueryResp> findname(String name){
+        return ZlMapper.findname(name);
+    }
+
+    public List<ZlQueryResp> findcat1(String cat){
+        return ZlMapper.findcat1(cat);
+    }
+
+    public List<ZlQueryResp> findcat2(String cat){
+        return ZlMapper.findcat2(cat);
+    }
+
     public List<ZlQueryResp> findid(Long id){
         return ZlMapper.findid(id);
     }

@@ -8,6 +8,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -51,6 +53,15 @@ public class TestController {
         Object object = redisTemplate.opsForValue().get(key);
         LOG.info("key: {}, value: {}", key, object);
         return object;
+    }
+
+    @Value("${file.upload.url}")
+    private String uploadFilePath;
+
+    @RequestMapping("/upload")
+    public String httpUpload(@RequestParam("files") MultipartFile files[]){
+        System.out.println("123");
+        return "";
     }
 }
 

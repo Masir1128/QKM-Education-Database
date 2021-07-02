@@ -417,12 +417,24 @@
    select * from zl where add3 = #{cat,jdbcType=VARCHAR}
   </select>
 
+  <select id="findcat1"  resultType="com.qkm.wiki.resp.ZlQueryResp">
+   select * from zl where add1 = #{cat,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findcat2"  resultType="com.qkm.wiki.resp.ZlQueryResp">
+   select * from zl where add2 = #{cat,jdbcType=VARCHAR}
+  </select>
+
   <select id="findid"  resultType="com.qkm.wiki.resp.ZlQueryResp">
-   select `id`,`name`,`author`,`dates` from zl where id = #{id,jdbcType=BIGINT}
+   select `id`,`name`,`author`,`dates`,`add1`,`add2`,`add3` ,`description` from zl where id = #{id,jdbcType=BIGINT}
   </select>
 
 
   <select id="findpersonal"  resultType="com.qkm.wiki.resp.ZlQueryResp">
    select * from zl where author = #{namer,jdbcType=VARCHAR}
+  </select>
+
+  <select id="findname"  resultType="com.qkm.wiki.resp.ZlQueryResp">
+   select * from zl where name = #{name,jdbcType=VARCHAR}
   </select>
 </mapper>

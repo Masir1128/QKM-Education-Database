@@ -78,6 +78,48 @@ public class ZlController {
         return resp;
     }
 
+
+    /**
+     * Desp: 查询
+     * @param:查询分类3
+     * @return:返回封装好的结果list
+     */
+    @RequestMapping(value = "/findnamer/{name}" )
+    public CommonResp findname(@PathVariable String name){
+        CommonResp<List<ZlQueryResp>> resp = new CommonResp<>();
+        List<ZlQueryResp> list = ZlService.findname(name);
+        resp.setContent(list);
+        return resp;
+    }
+
+
+
+    /**
+     * Desp: 查询
+     * @param:查询分类1
+     * @return:返回封装好的结果list
+     */
+    @RequestMapping(value = "/find1/{cat}" )
+    public CommonResp findlevel1(@PathVariable String cat){
+        CommonResp<List<ZlQueryResp>> resp = new CommonResp<>();
+        List<ZlQueryResp> list = ZlService.findcat1(cat);
+        resp.setContent(list);
+        return resp;
+    }
+
+    /**
+     * Desp: 查询
+     * @param:查询分类2
+     * @return:返回封装好的结果list
+     */
+    @RequestMapping(value = "/find2/{cat}" )
+    public CommonResp findlevel2(@PathVariable String cat){
+        CommonResp<List<ZlQueryResp>> resp = new CommonResp<>();
+        List<ZlQueryResp> list = ZlService.findcat2(cat);
+        resp.setContent(list);
+        return resp;
+    }
+
     /**
      * Desp: 查询
      * @param:查询标题
@@ -117,4 +159,5 @@ public class ZlController {
         resp.setContent(list);
         return resp;
     }
+    
 }

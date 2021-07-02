@@ -125,5 +125,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-websocket:5.3.1" level="project" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.70" level="project" />
     <orderEntry type="library" name="Maven: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" level="project" />
+    <orderEntry type="library" name="Maven: commons-fileupload:commons-fileupload:1.4" level="project" />
+    <orderEntry type="library" name="Maven: commons-io:commons-io:2.2" level="project" />
   </component>
 </module>

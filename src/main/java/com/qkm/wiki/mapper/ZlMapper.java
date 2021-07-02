@@ -33,7 +33,13 @@ public interface ZlMapper {
 
     public List<ZlQueryResp> findcat(String cat);
 
+    public List<ZlQueryResp> findcat1(String cat);
+
+    public List<ZlQueryResp> findcat2(String cat);
+
     public List<ZlQueryResp> findid(Long id);
 
     public List<ZlQueryResp> findpersonal(String namer);
+
+    public List<ZlQueryResp> findname(String name);
 }
